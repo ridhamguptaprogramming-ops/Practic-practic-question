@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vote Page</title>
+    <style>
+        .vote {
+            text-decoration: none;
+            color: white;
+            background-color: blue;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .vote:hover {
+            background-color: darkblue;
+        }
+    </style>
+</head>
+<body>
+
+    <div>
+        <h1>Vote Your Choice</h1>
+
+        <p>Option A: <a class="vote">Vote 2</a></p>
+        <p>Option B: <a class="vote">Vote 1</a></p>
+        <p>Option C: <a class="vote">Vote 1</a></p>
+    </div>
+
+    <script>
+        const voteButtons = document.querySelectorAll('.vote');
+
+        voteButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                alert('Thank you for voting!');
+            });
+        });
+    </script>
+
+</body>
+</html>
