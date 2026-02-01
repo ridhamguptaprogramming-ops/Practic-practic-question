@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Live Character & Word Analyzer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            padding: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 150px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .output {
+            margin-top: 15px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Live Character & Word Analyzer</h2>
+
+    <textarea id="textInput" placeholder="Type your paragraph here..."></textarea><br>
+
+    <button onclick="analyzeText()">Analyze</button>
+
+    <div class="output">
+        <p id="charCount"></p>
+        <p id="wordCount"></p>
+        <p id="sentenceCount"></p>
+    </div>
+
+    <script>
+        function analyzeText() {
+            let text = document.getElementById("textInput").value;
+
+            // Character count (including spaces)
+            let characters = text.length;
+
+            // Word count
+            let words = text.trim().split(/\s+/);
+            let wordCount = text.trim() === "" ? 0 : words.length;
+
+            // Sentence count (counting full stops)
+            let sentences = text.split(".").length - 1;
+
+            document.getElementById("charCount").innerText =
+                "Character Count (including spaces): " + characters;
+
+            document.getElementById("wordCount").innerText =
+                "Word Count: " + wordCount;
+
+            document.getElementById("sentenceCount").innerText =
+                "Sentence Count: " + sentences;
+        }
+    </script>
+
+</body>
+</html>
