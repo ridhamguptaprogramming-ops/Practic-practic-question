@@ -1,26 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        .s{
-            background-color: lightblue;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Temperature Status Tool</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .box {
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      width: 300px;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    input {
+      width: 90%;
+      padding: 8px;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 8px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      background: #007bff;
+      color: white;
+      border-radius: 5px;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    #result {
+      margin-top: 15px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
 
-    <div class="s">
-        <p style="text-align: center;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos illo adipisci 
-            sint beatae esse quis voluptas incidunt. Doloribus accusamus tempore eius reiciendis non 
-            iure amet odit, cumque voluptates deserunt distinctio.</p>
-    </div>
-    <div>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo possimus saepe atque molestias, 
-            delectus vel ut deserunt vero fugiat sapiente asperiores sint optio dolores repellendus, 
-            mollitia magnam iste error maxime.</p>
-    </div>
+  <div class="box">
+    <h2>Temperature Checker</h2>
+
+    <input type="number" id="temp" placeholder="Enter temperature">
+
+    <br>
+    <button onclick="checkTemp()">Check</button>
+
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function checkTemp() {
+      let temp = document.getElementById("temp").value;
+      let result = document.getElementById("result");
+
+      if (temp === "") {
+        result.innerHTML = "Please enter temperature";
+        result.style.color = "black";
+      }
+      else if (temp < 15) {
+        result.innerHTML = "Cold ❄️";
+        result.style.color = "blue";
+      }
+      else if (temp <= 30) {
+        result.innerHTML = "Warm 🌤️";
+        result.style.color = "orange";
+      }
+      else {
+        result.innerHTML = "Hot 🔥";
+        result.style.color = "red";
+      }
+    }
+  </script>
+
 </body>
 </html>

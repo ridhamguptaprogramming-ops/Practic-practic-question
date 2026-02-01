@@ -2,29 +2,50 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Name Formatter Tool</title>
     <style>
-        ol{
-            list-style-type: none;
-            font-weight: bold;
-            background-color: lightgray;
-            width: 200px;
-            padding: 10px;
-            
+        body {
+            font-family: Arial, sans-serif;
+        }
+        input {
+            padding: 6px;
+            width: 250px;
+        }
+        button {
+            padding: 6px 12px;
+            margin-top: 10px;
+        }
+        p {
+            margin: 5px 0;
         }
     </style>
 </head>
 <body>
-    <ol>
-       <h1>SUPPORT</h1>
-                   <li>contact us</li>
-                   <li>FAQs</li>
-                   <li>size guide</li>
-                   <li>shipping & Returns</li>
-            </li>
-       </ol>
 
-   </ol>
+    <h2>Name Formatter Tool</h2>
+
+    <input type="text" id="fullname" placeholder="Enter full name">
+    <br><br>
+    <button onclick="formatName()">Format</button>
+
+    <p id="upper"></p>
+    <p id="lower"></p>
+    <p id="count"></p>
+
+    <script>
+        function formatName() {
+            let name = document.getElementById("fullname").value;
+
+            document.getElementById("upper").innerText =
+                "Uppercase: " + name.toUpperCase();
+
+            document.getElementById("lower").innerText =
+                "Lowercase: " + name.toLowerCase();
+
+            document.getElementById("count").innerText =
+                "Character Count: " + name.length;
+        }
+    </script>
+
 </body>
 </html>
