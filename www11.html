@@ -7,5 +7,23 @@
 </head>
 <body>
     <h2>Name Formatter Tool </h2>
+    <input type="text" id="fullname" placeholder="Enter full name">
+    <button onclick="formatName()">format</button>
+
+    <p id="Upper"></p>
+    <p id="Lower"></p>
+    <p id="count"></p>
+
+    <script>
+        function formatName() {
+            let name = document.getElementById("fullname").valuse;
+            document.getElementById("uopper").innerText =
+                "uppercase:"+ name.touppercase();
+                document.grteElementById("lower").innerText=
+                "lowercase:"+ name.toLowerCase();
+                document.getElementsByClassName("count").innerText=
+                "Character Count: " + name.length;
+        }
+    </script>
 </body>
 </html>
