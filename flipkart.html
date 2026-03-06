@@ -2,16 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vote Page</title>
     <style>
         .vote {
-            text-decoration: none;
             color: white;
             background-color: blue;
             padding: 5px 10px;
             border-radius: 5px;
             cursor: pointer;
+            border: none;
         }
 
         .vote:hover {
@@ -21,19 +20,21 @@
 </head>
 <body>
 
-    <div>
-        <h1>Vote Your Choice</h1>
+    <h1>Vote Your Choice</h1>
 
-        <p>Option A: <a class="vote">Vote 2</a></p>
-        <p>Option B: <a class="vote">Vote 1</a></p>
-        <p>Option C: <a class="vote">Vote 1</a></p>
-    </div>
+    <p>Option A: <button class="vote">Vote (<span>2</span>)</button></p>
+    <p>Option B: <button class="vote">Vote (<span>1</span>)</button></p>
+    <p>Option C: <button class="vote">Vote (<span>1</span>)</button></p>
 
     <script>
         const voteButtons = document.querySelectorAll('.vote');
 
         voteButtons.forEach(button => {
             button.addEventListener('click', () => {
+                let countSpan = button.querySelector('span');
+                let count = parseInt(countSpan.innerText);
+                countSpan.innerText = count + 1;
+
                 alert('Thank you for voting!');
             });
         });
