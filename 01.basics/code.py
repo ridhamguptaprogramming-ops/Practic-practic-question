@@ -8,4 +8,4 @@ chai("lemon tea")
 chai_one = "lemon tea"
 chai_tow = "ginger tea"
 chai_three = "masale chai"
-chai_six = "ridham gupta"
+chai_six = "ridham gupta" 
