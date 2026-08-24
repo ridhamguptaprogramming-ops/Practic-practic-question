@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Salford & Co. — Startup Pitch Deck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0d0620;
+    --deep:#150a30;
+    --deep-2:#1c0f42;
+    --violet:#5b2ce0;
+    --violet-2:#7c4dff;
+    --lilac:#c9bdf5;
+    --lilac-soft:#ede8fb;
+    --mist:#f2eff9;
+    --paper:#fbfaff;
+    --line:rgba(255,255,255,0.16);
+    --line-dark:rgba(13,6,32,0.14);
+    --grey:#5c5570;
+    --grey-soft:#8b84a0;
+    --ok:#26c281;
+    --shadow-lg: 0 30px 70px rgba(13,6,32,0.35);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:'Manrope',sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.display{
+    font-family:'Space Grotesk',sans-serif;
+    margin:0;
+    letter-spacing:-0.02em;
+  }
+  p{margin:0;}
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  .container{
+    max-width:1320px;
+    margin:0 auto;
+    padding:0 40px;
+  }
+  section{position:relative;}
+  ::selection{background:var(--violet-2);color:#fff;}
+
+  /* ---------- scroll reveal ---------- */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.2,.7,.3,1),transform .8s cubic-bezier(.2,.7,.3,1);}
+  .reveal.in{opacity:1;transform:translateY(0);}
+  .reveal-delay-1{transition-delay:.1s;}
+  .reveal-delay-2{transition-delay:.2s;}
+  .reveal-delay-3{transition-delay:.3s;}
+
+  /* ---------- nav ---------- */
+  .nav{
+    position:fixed;top:0;left:0;right:0;z-index:1000;
+    padding:20px 0;
+    transition:background .4s ease, padding .4s ease, box-shadow .4s ease, backdrop-filter .4s ease;
+    transform:translateY(-100%);
+    animation:navDrop .7s cubic-bezier(.2,.8,.2,1) forwards;
+    animation-delay:.05s;
+  }
+  @keyframes navDrop{ to{ transform:translateY(0); } }
+  .nav.scrolled{
+    background:rgba(13,6,32,0.82);
+    backdrop-filter:blur(14px);
+    padding:14px 0;
+    box-shadow:0 10px 30px rgba(0,0,0,0.25);
+  }
+  @media (prefers-reduced-motion: reduce){ .nav{ transform:translateY(0); } }
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:20px;}
+  .brand{display:flex;align-items:center;gap:10px;color:#fff;font-weight:700;font-size:19px;font-family:'Space Grotesk',sans-serif;white-space:nowrap;}
+  .brand-mark{width:30px;height:30px;flex-shrink:0;}
+  .nav-links{display:flex;align-items:center;gap:6px;list-style:none;margin:0;padding:6px;background:rgba(255,255,255,0.06);border:1px solid var(--line);border-radius:999px;}
+  .nav-links a{
+    color:rgba(255,255,255,0.78);
+    font-size:13.5px; font-weight:600;
+    padding:9px 16px;border-radius:999px;
+    transition:background .25s, color .25s;
+    white-space:nowrap;
+  }
+  .nav-links a:hover{color:#fff;background:rgba(255,255,255,0.1);}
+  .nav-links a.active{background:#fff;color:var(--deep);}
+  .nav-cta{
+    display:flex;align-items:center;gap:10px;
+  }
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    padding:12px 24px;border-radius:999px;
+    font-weight:700;font-size:14px;
+    cursor:pointer;border:1px solid transparent;
+    transition:transform .25s cubic-bezier(.2,.7,.3,1), box-shadow .25s, background .25s, color .25s, border-color .25s;
+    white-space:nowrap;
+    position:relative;
+    will-change:transform;
+  }
+  .btn:active{transform:scale(.96);}
+  .btn-primary{background:linear-gradient(135deg,var(--violet-2),#a06bff);color:#fff;box-shadow:0 10px 30px rgba(124,77,255,0.45);}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 36px rgba(124,77,255,0.55);}
+  .btn-ghost-light{border-color:rgba(255,255,255,0.4);color:#fff;background:transparent;}
+  .btn-ghost-light:hover{background:rgba(255,255,255,0.12);}
+  .btn-ghost-dark{border-color:rgba(13,6,32,0.25);color:var(--ink);background:transparent;}
+  .btn-ghost-dark:hover{background:rgba(13,6,32,0.06);}
+  .menu-toggle{display:none;background:none;border:1px solid var(--line);border-radius:12px;width:44px;height:44px;color:#fff;cursor:pointer;align-items:center;justify-content:center;}
+
+  /* ---------- eyebrow / pills ---------- */
+  .pill-row{display:flex;flex-wrap:wrap;gap:10px;}
+  .pill{
+    border:1px solid var(--line-dark);
+    border-radius:999px;padding:8px 16px;font-size:13px;font-weight:600;
+    transition:box-shadow .3s, border-color .3s, transform .2s;
+  }
+  .pill-light{border-color:var(--line);color:#fff;}
+  .hero-badges .pill-light, .hero-tag-row .pill-light{
+    animation:pillGlow 3.4s ease-in-out infinite;
+  }
+  .hero-tag-row .pill-light:nth-child(2){animation-delay:.6s;}
+  .hero-badges .pill-light:hover, .hero-tag-row .pill-light:hover{transform:translateY(-2px);}
+  @keyframes pillGlow{
+    0%,100%{box-shadow:0 0 0 rgba(124,77,255,0);border-color:var(--line);}
+    50%{box-shadow:0 0 18px rgba(124,77,255,0.45);border-color:rgba(124,77,255,0.6);}
+  }
+
+  /* ================= HERO ================= */
+  .hero{
+    background:
+      radial-gradient(ellipse 900px 500px at 15% 0%, rgba(124,77,255,0.35), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 90% 10%, rgba(91,44,224,0.3), transparent 55%),
+      linear-gradient(180deg, var(--ink) 0%, var(--deep) 55%, var(--deep-2) 100%);
+    color:#fff;
+    padding:150px 0 0;
+    overflow:hidden;
+    position:relative;
+  }
+  .hero > .container, .hero-stage, .scroll-cue{position:relative;z-index:2;}
+  /* animated background orbs */
+  .hero-orbs{position:absolute;inset:0;overflow:hidden;z-index:0;pointer-events:none;}
+  .orb{position:absolute;border-radius:50%;filter:blur(60px);opacity:0.5;animation:orbdrift 16s ease-in-out infinite;}
+  .orb1{width:420px;height:420px;background:radial-gradient(circle,rgba(124,77,255,0.55),transparent 70%);top:-120px;left:-100px;animation-duration:18s;}
+  .orb2{width:360px;height:360px;background:radial-gradient(circle,rgba(183,156,255,0.4),transparent 70%);top:120px;right:-80px;animation-duration:22s;animation-delay:-4s;}
+  .orb3{width:300px;height:300px;background:radial-gradient(circle,rgba(91,44,224,0.5),transparent 70%);bottom:-60px;left:38%;animation-duration:20s;animation-delay:-9s;}
+  @keyframes orbdrift{
+    0%,100%{transform:translate(0,0) scale(1);}
+    33%{transform:translate(40px,-30px) scale(1.08);}
+    66%{transform:translate(-30px,25px) scale(0.94);}
+  }
+  /* floating sparkle particles */
+  .particle{position:absolute;border-radius:50%;background:#fff;opacity:0;animation:sparkle 6s ease-in-out infinite;pointer-events:none;}
+  @keyframes sparkle{
+    0%{opacity:0;transform:translateY(0) scale(0.6);}
+    15%{opacity:0.9;}
+    50%{opacity:0.5;}
+    100%{opacity:0;transform:translateY(-140px) scale(1.1);}
+  }
+  .hero-eyebrow{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;margin-bottom:56px;}
+  .hero-badges{display:flex;gap:10px;flex-wrap:wrap;}
+  .hero-title{
+    font-size:clamp(64px,11vw,168px);
+    font-weight:700;
+    line-height:0.86;
+    text-align:center;
+    margin:0 0 -0.05em;
+    user-select:none;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero-title::after{
+    content:"";
+    position:absolute;top:0;bottom:0;left:-30%;width:26%;
+    background:linear-gradient(100deg, transparent, rgba(255,255,255,0.55), transparent);
+    mix-blend-mode:overlay;
+    animation:titleShine 2.6s ease-out forwards;
+    animation-delay:1.05s;
+    pointer-events:none;
+  }
+  @keyframes titleShine{
+    0%{left:-30%;}
+    100%{left:120%;}
+  }
+  .hero-title .ch{
+    display:inline-block;
+    background:linear-gradient(180deg,#f3f0ff 0%, #c6b8ef 55%, #8a76c9 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    opacity:0;
+    transform:translateY(0.5em) rotate(6deg);
+    animation:letterIn 0.6s cubic-bezier(.2,.7,.2,1) forwards;
+  }
+  @keyframes letterIn{
+    to{opacity:1;transform:translateY(0) rotate(0deg);}
+  }
+  .hero-sub{
+    max-width:600px;margin:28px auto 0;text-align:center;
+    color:rgba(255,255,255,0.65);font-size:17px;line-height:1.6;
+    opacity:0;animation:fadeUp .7s ease forwards;animation-delay:.55s;
+  }
+  @keyframes fadeUp{
+    from{opacity:0;transform:translateY(14px);}
+    to{opacity:1;transform:translateY(0);}
+  }
+  .hero-ctas{display:flex;justify-content:center;gap:14px;margin-top:34px;flex-wrap:wrap;
+    opacity:0;animation:fadeUp .7s ease forwards;animation-delay:.72s;
+  }
+  .hero-tag-row{display:flex;justify-content:center;gap:16px;margin-top:56px;flex-wrap:wrap;position:relative;z-index:3;
+    opacity:0;animation:fadeUp .7s ease forwards;animation-delay:.88s;
+  }
+  .hero-eyebrow{opacity:0;animation:fadeUp .8s ease forwards;animation-delay:0.15s;}
+  .hero-stage{
+    position:relative;height:420px;margin-top:-40px;
+  }
+  .cube-wrap{
+    position:absolute;
+    left:calc(50% + var(--px,0px));
+    top:calc(40px + var(--py,0px));
+    transform:translateX(-50%);
+    transition:left .35s ease-out, top .35s ease-out;
+    width:min(760px,86vw);
+    filter:drop-shadow(0 40px 60px rgba(91,44,224,0.55));
+    animation:float 7s ease-in-out infinite;
+    z-index:2;
+  }
+  .cube-wrap img{width:100%;}
+  .cube-wrap.dup1{opacity:0.55;transform:translateX(-50%) translateY(70px) scale(0.92);filter:blur(0.3px) drop-shadow(0 30px 40px rgba(91,44,224,0.35));animation-delay:-2.3s;z-index:1;}
+  .cube-wrap.dup2{opacity:0.32;transform:translateX(-50%) translateY(130px) scale(0.85);filter:blur(0.6px);animation-delay:-4.6s;z-index:0;}
+  @keyframes float{
+    0%,100%{transform:translateX(-50%) translateY(0px) rotate(0deg);}
+    50%{transform:translateX(-50%) translateY(-18px) rotate(1.2deg);}
+  }
+  .cube-wrap.dup1{animation-name:float1;}
+  .cube-wrap.dup2{animation-name:float2;}
+  @keyframes float1{
+    0%,100%{transform:translateX(-50%) translateY(70px) scale(0.92) rotate(0deg);}
+    50%{transform:translateX(-50%) translateY(52px) scale(0.92) rotate(-1deg);}
+  }
+  @keyframes float2{
+    0%,100%{transform:translateX(-50%) translateY(130px) scale(0.85) rotate(0deg);}
+    50%{transform:translateX(-50%) translateY(112px) scale(0.85) rotate(0.8deg);}
+  }
+  .hero-fade{
+    position:absolute;bottom:0;left:0;right:0;height:160px;
+    background:linear-gradient(180deg, transparent, var(--deep-2));
+    pointer-events:none;
+  }
+  .scroll-cue{
+    display:flex;flex-direction:column;align-items:center;gap:10px;
+    position:relative;z-index:3;padding-bottom:34px;color:rgba(255,255,255,0.55);font-size:12px;letter-spacing:0.14em;text-transform:uppercase;
+    width:fit-content;margin:0 auto;
+  }
+  .scroll-cue-label{transition:color .25s;}
+  .scroll-cue-btn{
+    width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,0.35);
+    display:flex;align-items:center;justify-content:center;color:#fff;
+    animation:scrollbounce 2s ease-in-out infinite;
+    transition:background .25s, border-color .25s, transform .25s;
+  }
+  .scroll-cue:hover .scroll-cue-label{color:#fff;}
+  .scroll-cue:hover .scroll-cue-btn{background:rgba(255,255,255,0.12);border-color:rgba(255,255,255,0.6);transform:scale(1.06);}
+  @keyframes scrollbounce{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(7px);}
+  }
+
+  /* corner floating crystals */
+  .corner-crystal{
+    position:absolute;z-index:1;pointer-events:none;
+    filter:drop-shadow(0 20px 34px rgba(91,44,224,0.45));
+    opacity:0;animation:crystalIn 1s ease forwards, crystalFloat 8s ease-in-out infinite;
+  }
+  .corner-crystal img{width:100%;}
+  @keyframes crystalIn{to{opacity:0.85;}}
+  .cc-tl{width:150px;top:110px;left:2%;transform:rotate(-18deg);animation-delay:.3s, 0s;}
+  .cc-tr{width:110px;top:130px;right:6%;transform:rotate(24deg);animation-delay:.45s, -2.5s;}
+  .cc-br{width:130px;bottom:10%;right:2%;transform:rotate(-10deg);animation-delay:.6s, -5s;}
+  @keyframes crystalFloat{
+    0%,100%{margin-top:0px;}
+    50%{margin-top:-22px;}
+  }
+  @media (max-width:1080px){
+    .corner-crystal{display:none;}
+  }
+
+  /* ================= section headers ================= */
+  .eyebrow-label{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:12.5px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;
+    color:var(--violet-2);margin-bottom:18px;
+  }
+  .eyebrow-label::before{content:"";width:22px;height:1.5px;background:var(--violet-2);display:block;}
+  .section-head{max-width:760px;}
+  .section-head h2{font-size:clamp(38px,5vw,58px);font-weight:700;line-height:1.02;}
+  .section-head p{margin-top:18px;font-size:17px;line-height:1.7;color:var(--grey);}
+  .light-on-dark .section-head p{color:rgba(255,255,255,0.65);}
+  .light-on-dark .section-head h2{color:#fff;}
+  .center{text-align:center;margin-left:auto;margin-right:auto;}
+
+  /* ================= INTRO ================= */
+  .intro{background:var(--deep-2);color:#fff;padding:120px 0;}
+  .intro-grid{
+    margin-top:64px;
+    display:grid;grid-template-columns:0.85fr 1.3fr 0.85fr;gap:22px;align-items:stretch;
+  }
+  .photo{border-radius:26px;overflow:hidden;border:1px solid var(--line);position:relative;isolation:isolate;}
+  .photo img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .7s cubic-bezier(.2,.7,.3,1);}
+  .photo:hover img{transform:scale(1.06);}
+  .intro-grid .photo:nth-child(1){min-height:420px;}
+  .intro-grid .photo:nth-child(2){min-height:480px;align-self:center;}
+  .intro-grid .photo:nth-child(3){min-height:420px;}
+
+  /* ================= COMPANY OVERVIEW ================= */
+  .overview{background:linear-gradient(180deg,var(--deep-2),var(--ink) 90%);color:#fff;padding:120px 0;}
+  .overview-media{
+    position:relative;border-radius:28px;overflow:hidden;border:1px solid var(--line);
+    height:340px;margin-bottom:70px;
+  }
+  .overview-media img{width:100%;height:100%;object-fit:cover;}
+  .overview-media .float-card{
+    position:absolute;right:40px;bottom:-64px;width:340px;border-radius:22px;overflow:hidden;
+    border:4px solid var(--ink);box-shadow:var(--shadow-lg);
+  }
+  .overview-media .float-card img{height:210px;object-fit:cover;}
+  .overview-bottom{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-top:90px;}
+  .overview-bottom h2{font-size:clamp(42px,6vw,68px);}
+  .stat-strip{display:flex;gap:36px;margin-top:40px;flex-wrap:wrap;}
+  .stat{border-left:2px solid var(--violet-2);padding-left:16px;}
+  .stat b{display:block;font-family:'Space Grotesk',sans-serif;font-size:30px;}
+  .stat span{color:rgba(255,255,255,0.55);font-size:13px;}
+
+  /* ================= alternating feature rows (Vision / Mission / Solutions / Services) ================= */
+  .feature{padding:120px 0;overflow:hidden;}
+  .feature-light{background:linear-gradient(160deg,#efeaff 0%, var(--mist) 55%, #f7f5fc 100%);}
+  .feature-dark{background:var(--deep-2);color:#fff;}
+  .feature-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center;}
+  .feature-grid.reverse .fg-media{order:2;}
+  .feature-grid.reverse .fg-text{order:1;}
+  .fg-media{position:relative;height:460px;}
+  .fg-media .main-photo{
+    position:absolute;left:0;top:0;width:78%;height:100%;border-radius:26px;overflow:hidden;
+    box-shadow:var(--shadow-lg);
+  }
+  .fg-media .main-photo img{width:100%;height:100%;object-fit:cover;}
+  .fg-media .card{
+    position:absolute;right:0;bottom:0;width:60%;
+    border-radius:22px;padding:30px;
+  }
+  .card-solid{background:linear-gradient(155deg,#3a1a94,var(--violet));color:#fff;border:1px solid rgba(255,255,255,0.15);box-shadow:0 30px 60px rgba(59,20,150,0.4);}
+  .card-outline{background:var(--paper);border:1.5px solid var(--line-dark);color:var(--ink);}
+  .feature-dark .card-outline{background:rgba(255,255,255,0.03);border-color:var(--line);color:#fff;}
+  .card h3{font-size:24px;margin-bottom:14px;}
+  .card .rule{width:44px;height:2px;background:currentColor;opacity:0.5;margin-bottom:16px;}
+  .card p{font-size:14.5px;line-height:1.7;font-style:italic;opacity:0.85;}
+  .fg-media .card-float-alt{position:absolute;left:0;bottom:-40px;width:56%;}
+  .fg-text h2{font-size:clamp(38px,5vw,54px);margin-bottom:20px;}
+  .fg-text > p{color:var(--grey);font-size:16.5px;line-height:1.75;margin-bottom:34px;}
+  .feature-dark .fg-text > p{color:rgba(255,255,255,0.65);}
+  .fg-cards{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  .fg-cards .card{position:static;width:auto;}
+  .fg-cards .card:nth-child(2){margin-top:26px;}
+
+  /* Solutions / Services layered media variant */
+  .stack-media{position:relative;height:460px;}
+  .stack-media .ph-a{position:absolute;left:0;top:0;width:62%;height:78%;border-radius:24px;overflow:hidden;box-shadow:var(--shadow-lg);}
+  .stack-media .ph-b{position:absolute;right:0;bottom:0;width:56%;height:64%;border-radius:24px;overflow:hidden;box-shadow:var(--shadow-lg);border:5px solid var(--deep-2);}
+  .stack-media .ph-a img, .stack-media .ph-b img{width:100%;height:100%;object-fit:cover;}
+
+  /* ================= MARKET ANALYSIS ================= */
+  .market{background:linear-gradient(160deg,#efeaff, var(--mist) 60%);padding:120px 0;}
+  .market-grid{display:grid;grid-template-columns:0.55fr 1.1fr 1fr;gap:34px;align-items:center;}
+  .market-vert{writing-mode:vertical-rl;transform:rotate(180deg);font-family:'Space Grotesk',sans-serif;font-size:clamp(36px,4vw,52px);font-weight:700;letter-spacing:-0.01em;justify-self:center;}
+  .stat-card{
+    border:1.5px solid var(--line-dark);border-radius:20px;padding:22px 26px;display:inline-block;margin-bottom:40px;background:#fff;
+  }
+  .stat-card b{font-family:'Space Grotesk',sans-serif;font-size:34px;display:block;}
+  .stat-card span{color:var(--grey-soft);font-size:13px;font-style:italic;}
+  .market-photo{border-radius:24px;overflow:hidden;height:420px;box-shadow:var(--shadow-lg);}
+  .market-photo img{width:100%;height:100%;object-fit:cover;}
+  .chart-card{
+    background:linear-gradient(160deg,#3a1a94,var(--violet));
+    border-radius:24px;padding:32px;color:#fff;box-shadow:0 30px 60px rgba(59,20,150,0.4);
+  }
+  .chart-legend{display:flex;gap:20px;justify-content:flex-end;margin-bottom:20px;font-size:13px;}
+  .chart-legend span{display:inline-flex;align-items:center;gap:6px;color:rgba(255,255,255,0.85);}
+  .dot{width:9px;height:9px;border-radius:50%;display:inline-block;}
+  .dot.s1{background:#b79cff;}
+  .dot.s2{background:#fff;}
+  .bars{display:flex;align-items:flex-end;gap:26px;height:230px;border-top:1px solid rgba(255,255,255,0.2);position:relative;padding-top:10px;}
+  .bars .grid-line{position:absolute;left:0;right:0;border-top:1px dashed rgba(255,255,255,0.12);font-size:11px;color:rgba(255,255,255,0.4);}
+  .bar-group{display:flex;gap:8px;align-items:flex-end;flex:1;justify-content:center;height:100%;position:relative;z-index:2;}
+  .bar{width:34%;border-radius:6px 6px 0 0;height:0;transition:height 1s cubic-bezier(.2,.8,.2,1);}
+  .bar.a{background:#b79cff;}
+  .bar.b{background:#fff;}
+  .bar-labels{display:flex;margin-top:14px;}
+  .bar-labels span{flex:1;text-align:center;font-size:12.5px;color:rgba(255,255,255,0.7);}
+
+  /* ================= TEAM ================= */
+  .team{background:var(--paper);padding:120px 0;}
+  .team-grid{margin-top:64px;display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-radius:28px;overflow:hidden;box-shadow:var(--shadow-lg);}
+  .team-card{position:relative;height:520px;overflow:hidden;cursor:pointer;}
+  .team-card img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.2,.7,.3,1),filter .6s;filter:grayscale(0.15);}
+  .team-card:hover img{transform:scale(1.05);filter:grayscale(0);}
+  .team-info{
+    position:absolute;left:14px;right:14px;bottom:14px;
+    background:rgba(255,255,255,0.9);backdrop-filter:blur(6px);
+    border-radius:16px;padding:16px 20px;
+    transition:background .4s, transform .4s;
+  }
+  .team-info h4{font-family:'Space Grotesk',sans-serif;font-size:19px;margin:0 0 2px;}
+  .team-info span{font-size:13px;color:var(--grey-soft);font-style:italic;}
+  .team-card.featured .team-info{background:linear-gradient(155deg,#3a1a94,var(--violet));color:#fff;}
+  .team-card.featured .team-info span{color:rgba(255,255,255,0.75);}
+  .team-social{
+    position:absolute;top:16px;right:16px;display:flex;gap:8px;
+    opacity:0;transform:translateY(-6px);transition:opacity .3s,transform .3s;
+  }
+  .team-card:hover .team-social{opacity:1;transform:translateY(0);}
+  .team-social a{
+    width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,0.92);
+    display:flex;align-items:center;justify-content:center;color:var(--ink);font-size:14px;
+  }
+
+  /* ================= CONTACT ================= */
+  .contact{
+    background:linear-gradient(165deg,#efeaff, var(--mist) 55%);
+    padding:120px 0 100px;
+  }
+  .contact-photo{border-radius:26px;overflow:hidden;height:360px;margin-top:56px;box-shadow:var(--shadow-lg);position:relative;}
+  .contact-photo img{width:100%;height:100%;object-fit:cover;}
+  .contact-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,6,32,0) 40%, rgba(13,6,32,0.55));}
+  .contact-strip{
+    margin-top:-42px;position:relative;z-index:2;
+    background:#fff;border:1px solid var(--line-dark);border-radius:999px;
+    display:flex;justify-content:center;gap:0;flex-wrap:wrap;
+    padding:8px;box-shadow:0 20px 50px rgba(13,6,32,0.14);
+    max-width:900px;margin-left:auto;margin-right:auto;
+  }
+  .contact-strip a{
+    display:flex;align-items:center;gap:10px;padding:16px 30px;font-weight:700;font-size:14.5px;
+    border-right:1px solid var(--line-dark);transition:color .25s;
+  }
+  .contact-strip a:last-child{border-right:none;}
+  .contact-strip a:hover{color:var(--violet-2);}
+  .contact-strip .ic{width:30px;height:30px;border-radius:50%;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+
+  .contact-form-wrap{
+    margin-top:80px;display:grid;grid-template-columns:0.9fr 1.1fr;gap:60px;align-items:start;
+  }
+  .contact-info-card{
+    background:var(--ink);color:#fff;border-radius:26px;padding:44px;height:100%;
+    position:relative;overflow:hidden;
+  }
+  .contact-info-card::before{
+    content:"";position:absolute;width:340px;height:340px;border-radius:50%;
+    background:radial-gradient(circle, rgba(124,77,255,0.5), transparent 70%);
+    top:-140px;right:-140px;
+  }
+  .contact-info-card h3{font-size:26px;margin-bottom:14px;position:relative;}
+  .contact-info-card p{color:rgba(255,255,255,0.62);font-size:15px;line-height:1.7;margin-bottom:30px;position:relative;}
+  .info-line{display:flex;gap:14px;align-items:flex-start;margin-bottom:20px;position:relative;}
+  .info-line .ic{width:38px;height:38px;border-radius:12px;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .info-line div b{display:block;font-size:14.5px;}
+  .info-line div span{font-size:13px;color:rgba(255,255,255,0.55);}
+
+  .form-card{background:#fff;border-radius:26px;padding:44px;border:1px solid var(--line-dark);box-shadow:var(--shadow-lg);}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+  .field{margin-bottom:20px;}
+  .field label{display:block;font-size:12.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--grey);margin-bottom:8px;}
+  .field input, .field textarea{
+    width:100%;border:1.5px solid var(--line-dark);border-radius:14px;padding:14px 16px;
+    font-family:'Manrope',sans-serif;font-size:14.5px;background:var(--mist);
+    transition:border-color .25s, background .25s;
+  }
+  .field input:focus, .field textarea:focus{outline:none;border-color:var(--violet-2);background:#fff;}
+  .field textarea{resize:vertical;min-height:110px;}
+  .form-submit{width:100%;justify-content:center;padding:15px;font-size:15px;margin-top:6px;}
+  .form-note{font-size:12.5px;color:var(--grey-soft);margin-top:14px;text-align:center;}
+  .success-msg{
+    display:none;align-items:center;gap:10px;background:rgba(38,194,129,0.1);
+    color:#178657;border:1px solid rgba(38,194,129,0.3);padding:14px 18px;border-radius:14px;
+    font-size:14px;font-weight:600;margin-top:6px;
+  }
+  .success-msg.show{display:flex;}
+
+  /* ================= footer ================= */
+  footer{background:var(--ink);color:rgba(255,255,255,0.55);padding:50px 0;}
+  .footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;font-size:13.5px;}
+  .footer-inner .brand{color:#fff;}
+  .footer-links{display:flex;gap:22px;flex-wrap:wrap;}
+  .footer-links a:hover{color:#fff;}
+  .to-top{
+    width:42px;height:42px;border-radius:50%;border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;color:#fff;cursor:pointer;
+    transition:background .25s;
+  }
+  .to-top:hover{background:rgba(255,255,255,0.1);}
+
+  /* ---------- responsive ---------- */
+  @media (max-width:1080px){
+    .nav-links{display:none;}
+    .menu-toggle{display:flex;}
+    .nav-cta .btn-ghost-light{display:none;}
+    .intro-grid{grid-template-columns:1fr;}
+    .intro-grid .photo{min-height:280px !important;}
+    .overview-bottom{grid-template-columns:1fr;gap:36px;}
+    .feature-grid{grid-template-columns:1fr;gap:44px;}
+    .feature-grid.reverse .fg-media, .feature-grid.reverse .fg-text{order:0;}
+    .fg-media{height:380px;}
+    .market-grid{grid-template-columns:1fr;}
+    .market-vert{writing-mode:horizontal-tb;transform:none;text-align:center;}
+    .team-grid{grid-template-columns:1fr;}
+    .team-card{height:380px;}
+    .contact-form-wrap{grid-template-columns:1fr;}
+    .form-row{grid-template-columns:1fr;}
+    .container{padding:0 24px;}
+    .overview-media .float-card{position:relative;right:auto;bottom:auto;width:100%;margin-top:20px;}
+    .overview-media{height:auto;}
+  }
+  @media (max-width:640px){
+    .brand{font-size:16px;}
+    .brand-mark{width:24px;height:24px;}
+    .nav-cta .btn-primary{padding:10px 16px;font-size:13px;}
+    .hero{padding-top:130px;}
+    .hero-eyebrow{justify-content:center;text-align:center;}
+    .hero-stage{height:300px;}
+    .stat-strip{gap:24px;}
+    .contact-strip{flex-direction:column;border-radius:24px;}
+    .contact-strip a{border-right:none;border-bottom:1px solid var(--line-dark);justify-content:center;}
+    .contact-strip a:last-child{border-bottom:none;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important;animation-iteration-count:1 !important;transition:none !important;scroll-behavior:auto !important;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ================= NAV ================= -->
+<nav class="nav" id="nav">
+  <div class="container nav-inner">
+    <a href="#top" class="brand">
+      <svg class="brand-mark" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 30L18 8L22 14L12 30H4Z" fill="#B79CFF"/>
+        <path d="M16 30L26 14L30 20L24 30H16Z" fill="#7C4DFF"/>
+      </svg>
+      Salford &amp; Co.
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#intro">Introduction</a></li>
+      <li><a href="#overview">Company</a></li>
+      <li><a href="#vision">Vision</a></li>
+      <li><a href="#solutions">Solutions</a></li>
+      <li><a href="#market">Market</a></li>
+      <li><a href="#team">Team</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="#contact" class="btn btn-ghost-light">Contact</a>
+      <a href="#contact" class="btn btn-primary">Get In Touch</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 6H21M3 12H21M3 18H21" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </div>
+  <div id="mobileMenu" style="display:none;background:rgba(13,6,32,0.98);backdrop-filter:blur(14px);position:absolute;top:100%;left:0;right:0;border-top:1px solid var(--line);box-shadow:0 20px 40px rgba(0,0,0,0.4);">
+    <div class="container" style="padding-top:16px;padding-bottom:20px;display:flex;flex-direction:column;gap:4px;">
+      <a href="#intro" style="color:#fff;padding:12px 4px;font-weight:600;border-bottom:1px solid rgba(255,255,255,0.1);">Introduction</a>
+      <a href="#overview" style="color:#fff;padding:12px 4px;font-weight:600;border-bottom:1px solid rgba(255,255,255,0.1);">Company</a>
+      <a href="#vision" style="color:#fff;padding:12px 4px;font-weight:600;border-bottom:1px solid rgba(255,255,255,0.1);">Vision</a>
+      <a href="#solutions" style="color:#fff;padding:12px 4px;font-weight:600;border-bottom:1px solid rgba(255,255,255,0.1);">Solutions</a>
+      <a href="#market" style="color:#fff;padding:12px 4px;font-weight:600;border-bottom:1px solid rgba(255,255,255,0.1);">Market</a>
+      <a href="#team" style="color:#fff;padding:12px 4px;font-weight:600;border-bottom:1px solid rgba(255,255,255,0.1);">Team</a>
+      <a href="#contact" style="color:#fff;padding:12px 4px;font-weight:600;">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="top">
+  <div class="hero-orbs">
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+    <div id="particleField"></div>
+  </div>
+  <div class="container">
+    <div class="hero-eyebrow">
+      <div class="hero-badges">
+        <span class="pill pill-light">Presented by : Daniel Gallego</span>
+      </div>
+      <div class="hero-badges">
+        <span class="pill pill-light">September 23, 2027</span>
+      </div>
+    </div>
+    <h1 class="hero-title" id="heroTitle">Startup</h1>
+    <p class="hero-sub">A purple-powered vision for what business presentation should feel like — bold, clear, and built for people who move fast. This is the Salford &amp; Co. pitch deck, reimagined as a living site.</p>
+    <div class="hero-ctas">
+      <a href="#overview" class="btn btn-primary">Explore the Deck</a>
+      <a href="#contact" class="btn btn-ghost-light">Book a Call</a>
+    </div>
+    <div class="hero-tag-row">
+      <span class="pill pill-light">Pitch Deck</span>
+      <span class="pill pill-light">Business Presentation</span>
+    </div>
+  </div>
+  <div class="corner-crystal cc-tl"><img src="images/cube.png" alt=""></div>
+  <div class="corner-crystal cc-tr"><img src="images/cube.png" alt=""></div>
+  <div class="corner-crystal cc-br"><img src="images/cube.png" alt=""></div>
+  <div class="hero-stage" id="heroStage">
+    <div class="cube-wrap dup2" id="cubeDup2"><img src="images/cube.png" alt=""></div>
+    <div class="cube-wrap dup1" id="cubeDup1"><img src="images/cube.png" alt=""></div>
+    <div class="cube-wrap" id="cubeMain"><img src="images/cube.png" alt="Iridescent glass prism, signature visual of the Salford & Co. deck"></div>
+    <div class="hero-fade"></div>
+  </div>
+  <a href="#intro" class="scroll-cue" aria-label="Scroll to next section">
+    <span class="scroll-cue-label">Scroll</span>
+    <span class="scroll-cue-btn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </span>
+  </a>
+</section>
+
+<!-- ================= INTRODUCTION ================= -->
+<section class="intro" id="intro">
+  <div class="container">
+    <div class="section-head center light-on-dark">
+      <div class="eyebrow-label" style="justify-content:center;">Introduction</div>
+      <h2>People-first, purpose-built</h2>
+      <p>Salford &amp; Co. exists at the intersection of ambitious teams and the tools they need to move quickly. We work alongside founders and operators to turn scattered ideas into a plan the whole room can rally behind.</p>
+    </div>
+    <div class="intro-grid">
+      <div class="photo reveal"><img src="images/building-blue.jpg" alt="Modern glass office tower"></div>
+      <div class="photo reveal reveal-delay-1"><img src="images/meeting-room.jpg" alt="Team collaborating around a conference table"></div>
+      <div class="photo reveal reveal-delay-2"><img src="images/handshake-talk.jpg" alt="Colleagues discussing over notes"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= COMPANY OVERVIEW ================= -->
+<section class="overview" id="overview">
+  <div class="container">
+    <div class="section-head light-on-dark">
+      <div class="eyebrow-label">Company Overview</div>
+    </div>
+    <div class="overview-media reveal">
+      <img src="images/laptop-hands.jpg" alt="Working on a laptop at a wooden desk">
+      <div class="float-card">
+        <img src="images/workshop.jpg" alt="Facilitator presenting to a small workshop group">
+      </div>
+    </div>
+    <div class="overview-bottom">
+      <h2 class="reveal">Company<br>Overview</h2>
+      <div class="reveal reveal-delay-1">
+        <p style="color:rgba(255,255,255,0.65);font-size:16.5px;line-height:1.75;">Founded on the idea that good strategy shouldn't live in a slide nobody re-opens, Salford &amp; Co. helps growing companies turn plans into shipped work — combining sharp research, hands-on execution, and a design sensibility that respects people's attention.</p>
+        <div class="stat-strip">
+          <div class="stat"><b>2019</b><span>Founded</span></div>
+          <div class="stat"><b>48</b><span>Team members</span></div>
+          <div class="stat"><b>120+</b><span>Projects shipped</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= OUR VISION ================= -->
+<section class="feature feature-light" id="vision">
+  <div class="container">
+    <div class="feature-grid">
+      <div class="fg-media reveal">
+        <div class="main-photo"><img src="images/handshake-main.jpg" alt="A confident handshake between partners"></div>
+        <div class="card card-solid">
+          <h3>Vision 01</h3>
+          <div class="rule"></div>
+          <p>To become the trusted partner every ambitious team calls before they call anyone else — the first name on the list when a plan needs to become real.</p>
+        </div>
+      </div>
+      <div class="fg-text reveal reveal-delay-1">
+        <div class="eyebrow-label">Our Vision</div>
+        <h2>Our Vision</h2>
+        <p>We imagine a working world where strategy and execution never split apart — where the people who set direction are the same people close enough to the work to adjust it in real time.</p>
+        <div class="card card-outline" style="width:auto;">
+          <h3>Vision 02</h3>
+          <div class="rule"></div>
+          <p>To build a company culture so clear and so consistent that it becomes a competitive advantage in its own right, for us and for every client we work beside.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= OUR MISSION ================= -->
+<section class="feature feature-dark" id="mission">
+  <div class="container">
+    <div class="feature-grid reverse">
+      <div class="fg-media reveal">
+        <div class="main-photo"><img src="images/mission-team.jpg" alt="Team celebrating a milestone together"></div>
+        <div class="card card-solid">
+          <h3>Mission 02</h3>
+          <div class="rule"></div>
+          <p>Ship in weeks, not quarters. We favour small, working versions of the plan over long documents that go stale before anyone reads them twice.</p>
+        </div>
+      </div>
+      <div class="fg-text reveal reveal-delay-1">
+        <div class="eyebrow-label">Our Mission</div>
+        <h2>Our Mission</h2>
+        <p>Our mission is simple to state and hard to live up to: give every client the clarity of a great plan and the speed of a great team, at the same time, without trading one for the other.</p>
+        <div class="card card-outline" style="width:auto;">
+          <h3>Mission 01</h3>
+          <div class="rule"></div>
+          <p>Meet founders where they are. Every engagement starts with listening — to the numbers, the team, and the story nobody's said out loud yet.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= OUR SOLUTIONS ================= -->
+<section class="feature feature-light" id="solutions">
+  <div class="container">
+    <div class="section-head center reveal" style="margin:0 auto 64px;">
+      <div class="eyebrow-label" style="justify-content:center;">Our Solutions</div>
+      <h2>Our Solutions</h2>
+      <p style="font-style:italic;">From first workshop to shipped product, we plug into wherever your team needs an extra set of hands and a clearer head.</p>
+    </div>
+    <div class="feature-grid">
+      <div class="stack-media reveal">
+        <div class="ph-a"><img src="images/solutions-analytics.jpg" alt="Reviewing financial reports on a tablet"></div>
+        <div class="ph-b"><img src="images/solutions-present.jpg" alt="Presenter walking a team through a plan"></div>
+      </div>
+      <div class="reveal reveal-delay-1">
+        <div class="fg-cards" style="display:flex;flex-direction:column;gap:22px;">
+          <div class="card card-outline" style="width:auto;">
+            <h3>Solution 01</h3>
+            <div class="rule"></div>
+            <p>Strategy sprints that turn a vague quarter into a two-week plan with owners, dates, and a definition of done everyone agrees on.</p>
+          </div>
+          <div class="card card-outline" style="width:auto;">
+            <h3>Solution 02</h3>
+            <div class="rule"></div>
+            <p>Embedded execution support — our team sits inside yours to build, test, and ship the parts of the plan that keep slipping.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= OUR SERVICES ================= -->
+<section class="feature feature-dark" id="services">
+  <div class="container">
+    <div class="section-head center reveal" style="margin:0 auto 64px;">
+      <div class="eyebrow-label" style="justify-content:center;">Our Services</div>
+      <h2>Our Services</h2>
+      <p>Three engagement models, one standard of work — pick the shape that fits how your team already operates.</p>
+    </div>
+    <div style="position:relative;height:480px;">
+      <div class="card card-outline reveal" style="position:absolute;left:0;top:60px;width:30%;">
+        <h3>Service 01</h3>
+        <div class="rule"></div>
+        <p>Advisory retainers for founders who need a sharp second opinion on strategy, hiring, and pace, every single week.</p>
+      </div>
+      <div class="photo reveal reveal-delay-1" style="position:absolute;left:26%;top:0;width:48%;height:100%;border-radius:26px;box-shadow:var(--shadow-lg);">
+        <img src="images/services-meeting.jpg" alt="Team reviewing a plan together around a table" style="width:100%;height:100%;object-fit:cover;">
+      </div>
+      <div class="card card-solid reveal reveal-delay-2" style="position:absolute;right:0;top:60px;width:30%;">
+        <h3>Service 02</h3>
+        <div class="rule"></div>
+        <p>Full project delivery — our team owns a workstream end to end, reporting into yours on a cadence you set.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MARKET ANALYSIS ================= -->
+<section class="market" id="market">
+  <div class="container">
+    <div class="market-grid">
+      <div class="market-vert reveal">Market Analysis</div>
+      <div class="reveal reveal-delay-1">
+        <div class="stat-card">
+          <b>+240K</b>
+          <span>User Acquired</span>
+        </div>
+        <div class="market-photo">
+          <img src="images/market-tablet.jpg" alt="Reviewing market data on a tablet">
+        </div>
+      </div>
+      <div class="reveal reveal-delay-2">
+        <p style="color:var(--grey);font-size:15.5px;line-height:1.75;margin-bottom:24px;">Demand for embedded strategy support has grown steadily across every segment we serve — fastest among Series A and B teams scaling past their founding playbook.</p>
+        <div class="chart-card">
+          <div class="chart-legend">
+            <span><i class="dot s1"></i>Series 1</span>
+            <span><i class="dot s2"></i>Series 2</span>
+          </div>
+          <div class="bars" id="barChart">
+            <div class="bar-group" data-a="35" data-b="48"><div class="bar a"></div><div class="bar b"></div></div>
+            <div class="bar-group" data-a="52" data-b="74"><div class="bar a"></div><div class="bar b"></div></div>
+            <div class="bar-group" data-a="78" data-b="98"><div class="bar a"></div><div class="bar b"></div></div>
+          </div>
+          <div class="bar-labels"><span>Item 1</span><span>Item 2</span><span>Item 3</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TEAM ================= -->
+<section class="team" id="team">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow-label">Our Team</div>
+      <h2>Our Team</h2>
+      <p>Small by design. Every engagement is led by people who've done the job before, not handed to whoever's free.</p>
+    </div>
+    <div class="team-grid">
+      <div class="team-card reveal">
+        <img src="images/team-samira.jpg" alt="Samira Hadid">
+        <div class="team-social">
+          <a href="#" aria-label="LinkedIn" onclick="return false;">in</a>
+        </div>
+        <div class="team-info">
+          <h4>Samira Hadid</h4>
+          <span>CTO</span>
+        </div>
+      </div>
+      <div class="team-card featured reveal reveal-delay-1">
+        <img src="images/team-daniel.jpg" alt="Daniel Gallego">
+        <div class="team-social">
+          <a href="#" aria-label="LinkedIn" onclick="return false;">in</a>
+        </div>
+        <div class="team-info">
+          <h4>Daniel Gallego</h4>
+          <span>CEO</span>
+        </div>
+      </div>
+      <div class="team-card reveal reveal-delay-2">
+        <img src="images/team-avery.jpg" alt="Avery Davis">
+        <div class="team-social">
+          <a href="#" aria-label="LinkedIn" onclick="return false;">in</a>
+        </div>
+        <div class="team-info">
+          <h4>Avery Davis</h4>
+          <span>General Manager</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT ================= -->
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="section-head center reveal" style="margin:0 auto;">
+      <div class="eyebrow-label" style="justify-content:center;">Get In Touch</div>
+      <h2>Get in touch with Us</h2>
+      <p>Tell us where the plan is stuck. We'll reply within one business day.</p>
+    </div>
+
+    <div class="contact-photo reveal">
+      <img src="images/contact-building.jpg" alt="Looking up at modern apartment towers">
+    </div>
+
+    <div class="contact-strip reveal">
+      <a href="tel:+1234567890">
+        <span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        +123-456-7890
+      </a>
+      <a href="https://www.reallygreatsite.com" target="_blank" rel="noopener">
+        <span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="white" stroke-width="2"/><path d="M2 12h20M12 2a15 15 0 010 20 15 15 0 010-20z" stroke="white" stroke-width="2"/></svg></span>
+        www.reallygreatsite.com
+      </a>
+      <a href="mailto:hello@reallygreatsite.com">
+        <span class="ic"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 4h16v16H4V4z" stroke="white" stroke-width="2"/><path d="M4 6l8 7 8-7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        hello@reallygreatsite.com
+      </a>
+    </div>
+
+    <div class="contact-form-wrap">
+      <div class="contact-info-card reveal">
+        <h3>Let's build the next version of your plan</h3>
+        <p>Whether it's a single workshop or an embedded team for the quarter, tell us the shape of the problem and we'll tell you the shape of the engagement.</p>
+        <div class="info-line">
+          <span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke="white" stroke-width="1.6"/></svg></span>
+          <div><b>Call us</b><span>+123-456-7890</span></div>
+        </div>
+        <div class="info-line">
+          <span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 4h16v16H4V4z" stroke="white" stroke-width="1.6"/><path d="M4 6l8 7 8-7" stroke="white" stroke-width="1.6"/></svg></span>
+          <div><b>Email us</b><span>hello@reallygreatsite.com</span></div>
+        </div>
+        <div class="info-line">
+          <span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" stroke="white" stroke-width="1.6"/><circle cx="12" cy="10" r="3" stroke="white" stroke-width="1.6"/></svg></span>
+          <div><b>Visit us</b><span>221 Meridian Ave, Suite 400</span></div>
+        </div>
+      </div>
+
+      <div class="form-card reveal reveal-delay-1">
+        <form id="contactForm" novalidate>
+          <div class="form-row">
+            <div class="field">
+              <label for="fname">Full name</label>
+              <input type="text" id="fname" name="fname" placeholder="Jordan Lee" required>
+            </div>
+            <div class="field">
+              <label for="femail">Email</label>
+              <input type="email" id="femail" name="femail" placeholder="jordan@company.com" required>
+            </div>
+          </div>
+          <div class="field">
+            <label for="fsubject">Subject</label>
+            <input type="text" id="fsubject" name="fsubject" placeholder="What's this about?" required>
+          </div>
+          <div class="field">
+            <label for="fmessage">Message</label>
+            <textarea id="fmessage" name="fmessage" placeholder="Tell us a bit about the plan you're working on..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary form-submit">Send Message</button>
+          <div class="success-msg" id="successMsg">✓ Thanks — your message has been queued. We'll be in touch within one business day.</div>
+          <p class="form-note">By submitting, you agree to be contacted by Salford &amp; Co. about your enquiry.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container footer-inner">
+    <div class="brand" style="color:#fff;">Salford &amp; Co.</div>
+    <div class="footer-links">
+      <a href="#top">Home</a>
+      <a href="#overview">Company</a>
+      <a href="#team">Team</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div style="display:flex;align-items:center;gap:18px;">
+      <span>© 2027 Salford &amp; Co. All rights reserved.</span>
+      <span class="to-top" id="toTop" title="Back to top">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 19V5M5 12l7-7 7 7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Split hero title into animated letters
+  const heroTitle = document.getElementById('heroTitle');
+  const titleText = heroTitle.textContent;
+  heroTitle.innerHTML = titleText.split('').map((ch, i) =>
+    `<span class="ch" style="animation-delay:${0.1 + i * 0.035}s">${ch}</span>`
+  ).join('');
+
+  // Generate floating sparkle particles in hero
+  const particleField = document.getElementById('particleField');
+  const particleCount = window.innerWidth < 640 ? 10 : 22;
+  for (let i = 0; i < particleCount; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    const size = 2 + Math.random() * 3;
+    p.style.width = size + 'px';
+    p.style.height = size + 'px';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.top = 30 + Math.random() * 60 + '%';
+    p.style.animationDuration = (5 + Math.random() * 6) + 's';
+    p.style.animationDelay = (Math.random() * 6) + 's';
+    particleField.appendChild(p);
+  }
+
+  // Magnetic hover effect for hero CTA buttons
+  if (window.matchMedia('(pointer: fine)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll('.hero-ctas .btn').forEach(btn => {
+      btn.addEventListener('mousemove', (e) => {
+        const r = btn.getBoundingClientRect();
+        const x = (e.clientX - r.left - r.width / 2) * 0.25;
+        const y = (e.clientY - r.top - r.height / 2) * 0.35;
+        btn.style.transform = `translate(${x}px, ${y}px)`;
+      });
+      btn.addEventListener('mouseleave', () => { btn.style.transform = ''; });
+    });
+  }
+
+  // Mouse parallax on the cube stack
+  const heroStage = document.getElementById('heroStage');
+  const cubeMain = document.getElementById('cubeMain');
+  const cubeDup1 = document.getElementById('cubeDup1');
+  const cubeDup2 = document.getElementById('cubeDup2');
+  if (window.matchMedia('(pointer: fine)').matches) {
+    document.querySelector('.hero').addEventListener('mousemove', (e) => {
+      const rect = heroStage.getBoundingClientRect();
+      const relX = (e.clientX - rect.left - rect.width / 2) / rect.width;
+      const relY = (e.clientY - rect.top - rect.height / 2) / rect.height;
+      cubeMain.style.setProperty('--px', (relX * 26) + 'px');
+      cubeMain.style.setProperty('--py', (relY * 16) + 'px');
+      cubeDup1.style.setProperty('--px', (relX * 16) + 'px');
+      cubeDup2.style.setProperty('--px', (relX * 9) + 'px');
+    });
+  }
+
+  // Nav scroll state
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Mobile menu toggle
+  const menuToggle = document.getElementById('menuToggle');
+  const mobileMenu = document.getElementById('mobileMenu');
+  menuToggle.addEventListener('click', () => {
+    const open = mobileMenu.style.display === 'block';
+    mobileMenu.style.display = open ? 'none' : 'block';
+  });
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.style.display = 'none'));
+
+  // Active nav link on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navA = document.querySelectorAll('.nav-links a');
+  const setActive = () => {
+    let current = '';
+    sections.forEach(sec => {
+      const top = sec.offsetTop - 140;
+      if (window.scrollY >= top) current = sec.getAttribute('id');
+    });
+    navA.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
+  };
+  window.addEventListener('scroll', setActive);
+  setActive();
+
+  // Reveal on scroll
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+
+  // Bar chart animation
+  const barGroups = document.querySelectorAll('.bar-group');
+  const barIO = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const g = e.target;
+        const a = g.querySelector('.bar.a');
+        const b = g.querySelector('.bar.b');
+        a.style.height = g.dataset.a + '%';
+        b.style.height = g.dataset.b + '%';
+        g.classList.add('in');
+        barIO.unobserve(g);
+      }
+    });
+  }, { threshold: 0.4 });
+  barGroups.forEach(g => barIO.observe(g));
+
+  // Back to top
+  document.getElementById('toTop').addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // Contact form (client-side working demo: validates + shows success state)
+  const form = document.getElementById('contactForm');
+  const successMsg = document.getElementById('successMsg');
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+    const btn = form.querySelector('.form-submit');
+    const original = btn.textContent;
+    btn.textContent = 'Sending...';
+    btn.disabled = true;
+    setTimeout(() => {
+      btn.textContent = original;
+      btn.disabled = false;
+      successMsg.classList.add('show');
+      form.reset();
+      setTimeout(() => successMsg.classList.remove('show'), 6000);
+    }, 900);
+  });
+</script>
+</body>
+</html>

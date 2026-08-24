@@ -1,59 +1,722 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Admin Dashboard</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Salford & Co. — Startup Pitch Deck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#000000;
+    --bg-soft:#0a0a0a;
+    --card:#141414;
+    --card-2:#1a1a1a;
+    --red:#e42a41;
+    --red-2:#ff4d5e;
+    --red-dark:#5c0f1c;
+    --line:rgba(255,255,255,0.13);
+    --line-soft:rgba(255,255,255,0.08);
+    --ink:#ffffff;
+    --dim:rgba(255,255,255,0.62);
+    --dimmer:rgba(255,255,255,0.4);
+    --paper:#0a0a0a;
+    --shadow-lg:0 30px 70px rgba(0,0,0,0.5);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:'Manrope',sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  h1,h2,h3,.display{
+    font-family:'Space Grotesk',sans-serif;
+    margin:0;
+    letter-spacing:-0.02em;
+  }
+  p{margin:0;}
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  .container{max-width:1360px;margin:0 auto;padding:0 40px;}
+  section{position:relative;}
+  ::selection{background:var(--red);color:#fff;}
+
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.2,.7,.3,1),transform .8s cubic-bezier(.2,.7,.3,1);}
+  .reveal.in{opacity:1;transform:translateY(0);}
+  .reveal-delay-1{transition-delay:.1s;}
+  .reveal-delay-2{transition-delay:.2s;}
+  .reveal-delay-3{transition-delay:.3s;}
+
+  /* ---------- nav ---------- */
+  .nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:22px 0;transition:background .4s, padding .4s, box-shadow .4s, backdrop-filter .4s;
+    transform:translateY(-100%);animation:navDrop .7s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:.05s;}
+  @keyframes navDrop{to{transform:translateY(0);}}
+  .nav.scrolled{background:rgba(0,0,0,0.85);backdrop-filter:blur(14px);padding:14px 0;box-shadow:0 10px 30px rgba(0,0,0,0.4);border-bottom:1px solid var(--line-soft);}
+  @media (prefers-reduced-motion: reduce){.nav{transform:translateY(0);}}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;gap:20px;}
+  .brand{display:flex;align-items:center;gap:10px;color:#fff;font-weight:700;font-size:19px;font-family:'Space Grotesk',sans-serif;white-space:nowrap;}
+  .brand-mark{width:32px;height:32px;flex-shrink:0;}
+  .nav-links{display:flex;align-items:center;gap:4px;list-style:none;margin:0;padding:6px;background:rgba(255,255,255,0.05);border:1px solid var(--line);border-radius:999px;}
+  .nav-links a{color:rgba(255,255,255,0.75);font-size:13.5px;font-weight:600;padding:9px 16px;border-radius:999px;transition:background .25s,color .25s;white-space:nowrap;}
+  .nav-links a:hover{color:#fff;background:rgba(255,255,255,0.08);}
+  .nav-links a.active{background:#fff;color:#000;}
+  .nav-cta{display:flex;align-items:center;gap:10px;}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:12px 22px;border-radius:999px;font-weight:700;font-size:14px;cursor:pointer;border:1px solid transparent;transition:transform .25s,box-shadow .25s,background .25s,color .25s,border-color .25s;white-space:nowrap;position:relative;}
+  .btn:active{transform:scale(.96);}
+  .btn-primary{background:#fff;color:#000;padding-right:8px;}
+  .btn-primary .arrow-dot{width:30px;height:30px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;color:#fff;margin-left:4px;transition:transform .3s;}
+  .btn-primary:hover .arrow-dot{transform:rotate(45deg);}
+  .btn-primary:hover{box-shadow:0 10px 30px rgba(255,255,255,0.15);}
+  .btn-ghost-light{border-color:rgba(255,255,255,0.25);color:#fff;background:rgba(255,255,255,0.04);}
+  .btn-ghost-light:hover{background:rgba(255,255,255,0.1);}
+  .btn-red{background:var(--red);color:#fff;box-shadow:0 10px 26px rgba(228,42,65,0.4);}
+  .btn-red:hover{transform:translateY(-2px);box-shadow:0 16px 34px rgba(228,42,65,0.5);}
+  .menu-toggle{display:none;background:none;border:1px solid var(--line);border-radius:12px;width:44px;height:44px;color:#fff;cursor:pointer;align-items:center;justify-content:center;}
+
+  .pill{border:1px solid var(--line);border-radius:999px;padding:8px 16px;font-size:13px;font-weight:600;color:#fff;background:rgba(255,255,255,0.04);}
+  .eyebrow-label{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--dim);margin-bottom:16px;}
+  .eyebrow-label::before{content:"";width:22px;height:1.5px;background:var(--red);display:block;}
+
+  /* ================= HERO ================= */
+  .hero{
+    background:
+      radial-gradient(1100px 700px at 85% -10%, rgba(228,42,65,0.35), transparent 55%),
+      radial-gradient(700px 500px at 10% 20%, rgba(228,42,65,0.14), transparent 60%),
+      linear-gradient(180deg, #000 0%, #050000 60%, #0a0000 100%);
+    color:#fff;padding:150px 0 0;overflow:hidden;position:relative;
+  }
+  .hero > .container, .hero-stage, .scroll-cue{position:relative;z-index:2;}
+  .hero-orbs{position:absolute;inset:0;overflow:hidden;z-index:0;pointer-events:none;}
+  .orb{position:absolute;border-radius:50%;filter:blur(70px);opacity:0.55;animation:orbdrift 16s ease-in-out infinite;}
+  .orb1{width:460px;height:460px;background:radial-gradient(circle,rgba(228,42,65,0.5),transparent 70%);top:-140px;right:-100px;animation-duration:19s;}
+  .orb2{width:340px;height:340px;background:radial-gradient(circle,rgba(228,42,65,0.28),transparent 70%);bottom:0px;left:-80px;animation-duration:22s;animation-delay:-4s;}
+  @keyframes orbdrift{0%,100%{transform:translate(0,0) scale(1);}33%{transform:translate(40px,-30px) scale(1.08);}66%{transform:translate(-30px,25px) scale(0.94);}}
+  .particle{position:absolute;border-radius:50%;background:#fff;opacity:0;animation:sparkle 6s ease-in-out infinite;pointer-events:none;}
+  @keyframes sparkle{0%{opacity:0;transform:translateY(0) scale(0.6);}15%{opacity:0.7;}50%{opacity:0.35;}100%{opacity:0;transform:translateY(-140px) scale(1.1);}}
+
+  .hero-eyebrow{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;margin-bottom:56px;opacity:0;animation:fadeUp .8s ease forwards;animation-delay:.15s;}
+  .hero-title{
+    font-size:clamp(70px,13vw,196px);font-weight:700;line-height:0.84;text-align:center;margin:0 0 -0.05em;user-select:none;position:relative;overflow:hidden;
+  }
+  .hero-title .ch{display:inline-block;color:#f4f4f4;opacity:0;transform:translateY(0.5em) rotate(6deg);animation:letterIn .6s cubic-bezier(.2,.7,.2,1) forwards;}
+  @keyframes letterIn{to{opacity:1;transform:translateY(0) rotate(0deg);}}
+  .hero-title::after{content:"";position:absolute;top:0;bottom:0;left:-30%;width:26%;background:linear-gradient(100deg,transparent,rgba(228,42,65,0.65),transparent);mix-blend-mode:screen;animation:titleShine 2.6s ease-out forwards;animation-delay:1.05s;pointer-events:none;}
+  @keyframes titleShine{0%{left:-30%;}100%{left:120%;}}
+  .hero-sub{max-width:600px;margin:28px auto 0;text-align:center;color:var(--dim);font-size:17px;line-height:1.6;opacity:0;animation:fadeUp .7s ease forwards;animation-delay:.55s;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+  .hero-ctas{display:flex;justify-content:center;gap:14px;margin-top:34px;flex-wrap:wrap;opacity:0;animation:fadeUp .7s ease forwards;animation-delay:.72s;}
+  .hero-tag-row{display:flex;justify-content:center;gap:16px;margin-top:56px;flex-wrap:wrap;position:relative;z-index:3;opacity:0;animation:fadeUp .7s ease forwards;animation-delay:.88s;}
+  .pill-glow{animation:pillGlow 3.4s ease-in-out infinite;}
+  .hero-tag-row .pill-glow:nth-child(2){animation-delay:.6s;}
+  @keyframes pillGlow{0%,100%{box-shadow:0 0 0 rgba(228,42,65,0);border-color:var(--line);}50%{box-shadow:0 0 18px rgba(228,42,65,0.45);border-color:rgba(228,42,65,0.6);}}
+
+  .corner-crystal{position:absolute;z-index:1;pointer-events:none;filter:drop-shadow(0 20px 34px rgba(228,42,65,0.35));opacity:0;animation:crystalIn 1s ease forwards, crystalFloat 8s ease-in-out infinite;}
+  .corner-crystal img{width:100%;}
+  @keyframes crystalIn{to{opacity:0.85;}}
+  .cc-tl{width:150px;top:110px;left:2%;transform:rotate(-18deg);animation-delay:.3s,0s;}
+  .cc-tr{width:110px;top:130px;right:6%;transform:rotate(24deg);animation-delay:.45s,-2.5s;}
+  .cc-br{width:130px;bottom:10%;right:2%;transform:rotate(-10deg);animation-delay:.6s,-5s;}
+  @keyframes crystalFloat{0%,100%{margin-top:0px;}50%{margin-top:-22px;}}
+  @media (max-width:1080px){.corner-crystal{display:none;}}
+
+  .hero-stage{position:relative;height:420px;margin-top:-40px;}
+  .cube-wrap{position:absolute;left:calc(50% + var(--px,0px));top:calc(40px + var(--py,0px));transform:translateX(-50%);transition:left .35s ease-out, top .35s ease-out;width:min(760px,86vw);filter:drop-shadow(0 40px 70px rgba(228,42,65,0.4));animation:float 7s ease-in-out infinite;z-index:2;}
+  .cube-wrap img{width:100%;}
+  .cube-wrap.dup1{opacity:0.5;transform:translateX(-50%) translateY(70px) scale(0.92);filter:blur(0.3px);animation-name:float1;animation-delay:-2.3s;z-index:1;}
+  .cube-wrap.dup2{opacity:0.28;transform:translateX(-50%) translateY(130px) scale(0.85);filter:blur(0.6px);animation-name:float2;animation-delay:-4.6s;z-index:0;}
+  @keyframes float{0%,100%{transform:translateX(-50%) translateY(0px) rotate(0deg);}50%{transform:translateX(-50%) translateY(-18px) rotate(1.2deg);}}
+  @keyframes float1{0%,100%{transform:translateX(-50%) translateY(70px) scale(0.92) rotate(0deg);}50%{transform:translateX(-50%) translateY(52px) scale(0.92) rotate(-1deg);}}
+  @keyframes float2{0%,100%{transform:translateX(-50%) translateY(130px) scale(0.85) rotate(0deg);}50%{transform:translateX(-50%) translateY(112px) scale(0.85) rotate(0.8deg);}}
+  .hero-fade{position:absolute;bottom:0;left:0;right:0;height:160px;background:linear-gradient(180deg,transparent,#000);pointer-events:none;}
+  .scroll-cue{display:flex;flex-direction:column;align-items:center;gap:10px;position:relative;z-index:3;padding-bottom:34px;color:var(--dim);font-size:12px;letter-spacing:0.14em;text-transform:uppercase;width:fit-content;margin:0 auto;}
+  .scroll-cue-btn{width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,0.3);display:flex;align-items:center;justify-content:center;color:#fff;animation:scrollbounce 2s ease-in-out infinite;transition:background .25s,border-color .25s,transform .25s;}
+  .scroll-cue:hover .scroll-cue-btn{background:rgba(228,42,65,0.15);border-color:var(--red);transform:scale(1.06);}
+  @keyframes scrollbounce{0%,100%{transform:translateY(0);}50%{transform:translateY(7px);}}
+
+  /* ================= WHY CHOOSE US ================= */
+  .why{background:var(--bg);padding:130px 0 100px;}
+  .why-head h2{font-size:clamp(40px,6vw,72px);line-height:1.03;font-weight:700;max-width:900px;}
+  .why-head .sub{font-size:16px;line-height:1.05;color:var(--dimmer);font-weight:700;}
+  .why-intro{max-width:980px;margin-top:34px;font-size:17px;line-height:1.75;color:var(--dim);}
+  .why-intro b{color:#fff;}
+  .why-lead{margin-top:20px;font-size:17px;color:var(--dim);}
+  .why-list{margin-top:70px;display:flex;flex-direction:column;gap:64px;}
+  .why-item{border-top:1px solid var(--line);padding-top:40px;}
+  .why-item h3{font-size:clamp(26px,3vw,34px);font-weight:700;margin-bottom:14px;display:flex;align-items:baseline;gap:10px;}
+  .why-item h3 .num{color:var(--red);}
+  .why-item .why-sub{color:var(--dim);font-size:16px;margin-bottom:22px;}
+  .why-bullets{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;}
+  .why-bullets .b-title{font-weight:700;color:#fff;font-size:14.5px;margin-bottom:6px;}
+  .why-bullets .b-body{color:var(--dim);font-size:14.5px;line-height:1.65;}
+
+  /* ================= STAT CARDS ================= */
+  .stats-row{padding:60px 0 110px;background:var(--bg);}
+  .stats-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;}
+  .stat-card2{border:1px solid var(--line);border-radius:26px;background:var(--card);padding:44px 30px;text-align:center;transition:border-color .3s,transform .3s,box-shadow .3s;position:relative;overflow:hidden;}
+  .stat-card2:hover{border-color:var(--red);transform:translateY(-4px);box-shadow:0 20px 50px rgba(228,42,65,0.18);}
+  .stat-card2.circle{border-radius:50%;aspect-ratio:1/1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;}
+  .stat-card2 .icon{width:46px;height:46px;margin:0 auto 18px;color:var(--dim);display:flex;align-items:center;justify-content:center;}
+  .stat-card2 .big{font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:700;color:#fff;}
+  .stat-card2 .lbl{color:var(--dim);font-size:14px;margin-top:4px;}
+
+  /* ================= MARQUEE ================= */
+  .marquee-wrap{background:var(--bg);border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft);padding:34px 0;overflow:hidden;white-space:nowrap;}
+  .marquee-track{display:inline-flex;animation:marquee 22s linear infinite;}
+  .marquee-track span{font-family:'Space Grotesk',sans-serif;font-size:clamp(34px,5vw,58px);font-weight:700;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,0.5);padding:0 26px;}
+  .marquee-track span.filled{color:#fff;-webkit-text-stroke:0;}
+  .marquee-track span.dot{color:var(--red);-webkit-text-stroke:0;}
+  @keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+  @media (prefers-reduced-motion: reduce){.marquee-track{animation-duration:60s;}}
+
+  /* ================= TIMELINE (event-agenda style) ================= */
+  .timeline-sec{background:var(--bg);padding:120px 0;}
+  .timeline-day{display:flex;align-items:center;gap:0;border-radius:16px;overflow:hidden;margin-bottom:2px;background:var(--card);}
+  .day-badge{background:var(--red);color:#fff;font-weight:700;font-size:19px;padding:20px 30px;white-space:nowrap;font-family:'Space Grotesk',sans-serif;}
+  .day-title{padding:20px 30px;font-size:19px;font-weight:700;color:#fff;font-family:'Space Grotesk',sans-serif;}
+  .timeline-rows{display:flex;flex-direction:column;}
+  .t-row{display:grid;grid-template-columns:220px 1fr;gap:30px;padding:34px 0;border-bottom:1px solid var(--line-soft);}
+  .t-row:last-child{border-bottom:none;}
+  .t-time{color:var(--dim);font-size:15px;font-weight:600;padding-top:2px;}
+  .t-card{background:var(--card);border:1px solid var(--line-soft);border-radius:18px;padding:26px 30px;}
+  .t-card h4{font-size:21px;font-weight:700;margin-bottom:10px;}
+  .t-card p{color:var(--dim);font-size:14.5px;line-height:1.7;}
+  .t-card b{color:#fff;}
+
+  /* ================= FAQ ================= */
+  .faq-sec{background:var(--bg);padding:120px 0;}
+  .faq-grid{display:grid;grid-template-columns:0.8fr 1.2fr;gap:60px;}
+  .faq-head h2{font-size:clamp(34px,4.4vw,50px);font-weight:700;line-height:1.05;}
+  .faq-head .accent{color:var(--dimmer);}
+  .faq-list{display:flex;flex-direction:column;gap:12px;}
+  .faq-item{background:var(--card);border:1px solid var(--line-soft);border-radius:18px;overflow:hidden;transition:border-color .3s;}
+  .faq-item.open{border-color:var(--red);}
+  .faq-q{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px 26px;cursor:pointer;font-size:16px;font-weight:600;}
+  .faq-plus{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform .35s,background .3s;}
+  .faq-item.open .faq-plus{transform:rotate(135deg);background:var(--red);}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease, padding .4s ease;padding:0 26px;color:var(--dim);font-size:14.5px;line-height:1.7;}
+  .faq-item.open .faq-a{max-height:220px;padding:0 26px 24px;}
+
+  /* ================= TEAM / HOSTS ================= */
+  .hosts-sec{background:var(--bg);padding:120px 0;}
+  .hosts-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
+  .hosts-photos{display:grid;grid-template-columns:1.3fr 1fr;gap:18px;}
+  .hosts-photos .big-photo{grid-row:span 2;border-radius:22px;overflow:hidden;height:100%;min-height:460px;border:1px solid var(--line-soft);}
+  .hosts-photos .big-photo img{width:100%;height:100%;object-fit:cover;}
+  .hosts-photos .sm-photo{border-radius:22px;overflow:hidden;height:220px;border:1px solid var(--line-soft);position:relative;}
+  .hosts-photos .sm-photo img{width:100%;height:100%;object-fit:cover;}
+  .hosts-photos .sm-photo .tag{position:absolute;left:14px;bottom:14px;background:rgba(0,0,0,0.6);backdrop-filter:blur(6px);border-radius:12px;padding:8px 14px;font-size:12.5px;font-weight:700;}
+  .hosts-text p{color:var(--dim);font-size:16px;line-height:1.75;margin-bottom:20px;}
+  .hosts-text b{color:#fff;}
+
+  /* ================= REGISTRATION / CONTACT CTA ================= */
+  .register-sec{background:var(--bg);padding:120px 0 60px;}
+  .register-head h2{font-size:clamp(40px,6vw,64px);font-weight:700;}
+  .register-head .accent{color:var(--dimmer);}
+  .register-panel{margin-top:60px;display:grid;grid-template-columns:0.8fr 1.3fr 0.7fr;gap:0;border-radius:26px;overflow:hidden;border:1px solid var(--line-soft);}
+  .register-crystal{background:#050505;display:flex;align-items:center;justify-content:center;padding:40px;}
+  .register-crystal img{width:70%;filter:drop-shadow(0 20px 40px rgba(228,42,65,0.4));animation:float 7s ease-in-out infinite;}
+  .register-why{background:linear-gradient(155deg,#1a0a0f,#3a0f1c);padding:44px;}
+  .register-why h3{font-size:28px;font-weight:700;margin-bottom:24px;}
+  .register-why ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px;}
+  .register-why li{padding-left:16px;border-left:2px solid var(--red);font-weight:700;font-size:15px;color:#f2e9ea;}
+  .register-cta{background:linear-gradient(155deg,var(--red),#8f1626);padding:44px;display:flex;flex-direction:column;justify-content:space-between;}
+  .register-cta .tag{font-size:12.5px;font-weight:700;background:rgba(255,255,255,0.15);display:inline-block;padding:6px 14px;border-radius:999px;width:fit-content;}
+  .register-cta .free{font-family:'Space Grotesk',sans-serif;font-size:52px;font-weight:700;margin:18px 0 6px;}
+  .register-cta .desc{font-size:14px;opacity:0.9;margin-bottom:26px;}
+  .register-cta .btn{background:#fff;color:#000;width:fit-content;}
+
+  /* form section (kept functional) */
+  .form-sec{background:var(--bg);padding:90px 0 60px;}
+  .form-wrap{display:grid;grid-template-columns:0.9fr 1.1fr;gap:40px;}
+  .form-card{background:var(--card);border:1px solid var(--line-soft);border-radius:26px;padding:44px;}
+  .field{margin-bottom:20px;}
+  .field label{display:block;font-size:12.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--dim);margin-bottom:8px;}
+  .field input,.field textarea{width:100%;border:1.5px solid var(--line);border-radius:14px;padding:14px 16px;font-family:'Manrope',sans-serif;font-size:14.5px;background:#0a0a0a;color:#fff;transition:border-color .25s;}
+  .field input:focus,.field textarea:focus{outline:none;border-color:var(--red);}
+  .field textarea{resize:vertical;min-height:110px;}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+  .form-submit{width:100%;justify-content:center;padding:15px;font-size:15px;margin-top:6px;}
+  .success-msg{display:none;align-items:center;gap:10px;background:rgba(228,42,65,0.1);color:#ff8b95;border:1px solid rgba(228,42,65,0.3);padding:14px 18px;border-radius:14px;font-size:14px;font-weight:600;margin-top:6px;}
+  .success-msg.show{display:flex;}
+  .contact-info-card{background:var(--card-2);color:#fff;border-radius:26px;padding:44px;height:100%;border:1px solid var(--line-soft);}
+  .contact-info-card h3{font-size:24px;margin-bottom:14px;}
+  .contact-info-card p{color:var(--dim);font-size:15px;line-height:1.7;margin-bottom:26px;}
+  .info-line{display:flex;gap:14px;align-items:flex-start;margin-bottom:20px;}
+  .info-line .ic{width:38px;height:38px;border-radius:12px;background:rgba(228,42,65,0.14);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--red-2);}
+  .info-line div b{display:block;font-size:14.5px;}
+  .info-line div span{font-size:13px;color:var(--dim);}
+
+  /* ================= FOOTER (giant wordmark) ================= */
+  .foot-wordmark{background:#000;padding:80px 0 0;overflow:hidden;text-align:center;}
+  .foot-wordmark .word{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(90px,18vw,260px);line-height:0.8;background:linear-gradient(180deg,#3a0a12,transparent);-webkit-background-clip:text;background-clip:text;color:transparent;user-select:none;}
+  footer{background:#000;color:var(--dim);padding:34px 0 50px;border-top:1px solid var(--line-soft);}
+  .footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;font-size:13.5px;}
+  .footer-inner .brand{color:#fff;}
+  .footer-links{display:flex;gap:22px;flex-wrap:wrap;}
+  .footer-links a:hover{color:#fff;}
+  .to-top{width:42px;height:42px;border-radius:50%;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:#fff;cursor:pointer;transition:background .25s;}
+  .to-top:hover{background:rgba(228,42,65,0.15);border-color:var(--red);}
+
+  @media (max-width:1080px){
+    .nav-links{display:none;}
+    .menu-toggle{display:flex;}
+    .nav-cta .btn-ghost-light{display:none;}
+    .why-bullets{grid-template-columns:1fr;}
+    .stats-grid{grid-template-columns:1fr;}
+    .stat-card2.circle{aspect-ratio:auto;border-radius:26px;padding:36px;}
+    .t-row{grid-template-columns:1fr;gap:12px;}
+    .faq-grid{grid-template-columns:1fr;gap:30px;}
+    .hosts-grid{grid-template-columns:1fr;}
+    .hosts-photos .big-photo{min-height:320px;}
+    .register-panel{grid-template-columns:1fr;}
+    .register-crystal{padding:24px;}
+    .register-crystal img{width:40%;}
+    .form-wrap{grid-template-columns:1fr;}
+    .form-row{grid-template-columns:1fr;}
+    .container{padding:0 24px;}
+  }
+  @media (max-width:640px){
+    .brand{font-size:16px;}
+    .brand-mark{width:24px;height:24px;}
+    .nav-cta .btn-primary{padding:8px 14px 8px 16px;font-size:13px;}
+    .hero{padding-top:130px;}
+    .hero-eyebrow{justify-content:center;text-align:center;}
+    .hero-stage{height:300px;}
+    .day-badge{padding:14px 18px;font-size:15px;}
+    .day-title{padding:14px 18px;font-size:15px;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important;animation-iteration-count:1 !important;transition:none !important;scroll-behavior:auto !important;}
+  }
+</style>
 </head>
 <body>
 
-<div class="dashboard">
-  <!-- Sidebar -->
-  <div class="sidebar">
-    <h2>Admin</h2>
-    <ul>
-      <li>Dashboard</li>
-      <li>Users</li>
-      <li>Reports</li>
-      <li>Settings</li>
+<!-- ================= NAV ================= -->
+<nav class="nav" id="nav">
+  <div class="container nav-inner">
+    <a href="#top" class="brand">
+      <svg class="brand-mark" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 30L18 8L22 14L12 30H4Z" fill="#ff8b95"/>
+        <path d="M16 30L26 14L30 20L24 30H16Z" fill="#e42a41"/>
+      </svg>
+      Salford &amp; Co.
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#why">Why Us</a></li>
+      <li><a href="#timeline">Process</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#team">Team</a></li>
+      <li><a href="#register">Register</a></li>
     </ul>
+    <div class="nav-cta">
+      <a href="#contact" class="btn btn-ghost-light">Contact</a>
+      <a href="#register" class="btn btn-primary">Get In Touch<span class="arrow-dot"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="white" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M3 6H21M3 12H21M3 18H21" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
   </div>
+  <div id="mobileMenu" style="display:none;background:rgba(0,0,0,0.97);backdrop-filter:blur(14px);position:absolute;top:100%;left:0;right:0;border-top:1px solid var(--line);box-shadow:0 20px 40px rgba(0,0,0,0.5);">
+    <div class="container" style="padding-top:16px;padding-bottom:20px;display:flex;flex-direction:column;gap:4px;">
+      <a href="#why" style="color:#fff;padding:12px 4px;font-weight:600;border-bottom:1px solid rgba(255,255,255,0.1);">Why Us</a>
+      <a href="#timeline" style="color:#fff;padding:12px 4px;font-weight:600;border-bottom:1px solid rgba(255,255,255,0.1);">Process</a>
+      <a href="#faq" style="color:#fff;padding:12px 4px;font-weight:600;border-bottom:1px solid rgba(255,255,255,0.1);">FAQ</a>
+      <a href="#team" style="color:#fff;padding:12px 4px;font-weight:600;border-bottom:1px solid rgba(255,255,255,0.1);">Team</a>
+      <a href="#register" style="color:#fff;padding:12px 4px;font-weight:600;">Register</a>
+    </div>
+  </div>
+</nav>
 
-  <!-- Main Content -->
-  <div class="main">
-    <div class="topbar">Welcome Admin</div>
+<!-- ================= HERO ================= -->
+<section class="hero" id="top">
+  <div class="hero-orbs">
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div id="particleField"></div>
+  </div>
+  <div class="container">
+    <div class="hero-eyebrow">
+      <span class="pill">Presented by : Daniel Gallego</span>
+      <span class="pill">September 23, 2027</span>
+    </div>
+    <h1 class="hero-title" id="heroTitle">Startup</h1>
+    <p class="hero-sub">A bold vision for what business presentation should feel like — sharp, fast, and built for people who move. This is the Salford &amp; Co. pitch deck, reimagined as a living site.</p>
+    <div class="hero-ctas">
+      <a href="#why" class="btn btn-red">Explore the Deck</a>
+      <a href="#contact" class="btn btn-ghost-light">Book a Call</a>
+    </div>
+    <div class="hero-tag-row">
+      <span class="pill pill-glow">Pitch Deck</span>
+      <span class="pill pill-glow">Business Presentation</span>
+    </div>
+  </div>
+  <div class="corner-crystal cc-tl"><img src="images/cube.png" alt=""></div>
+  <div class="corner-crystal cc-tr"><img src="images/cube.png" alt=""></div>
+  <div class="corner-crystal cc-br"><img src="images/cube.png" alt=""></div>
+  <div class="hero-stage" id="heroStage">
+    <div class="cube-wrap dup2" id="cubeDup2"><img src="images/cube.png" alt=""></div>
+    <div class="cube-wrap dup1" id="cubeDup1"><img src="images/cube.png" alt=""></div>
+    <div class="cube-wrap" id="cubeMain"><img src="images/cube.png" alt="Iridescent glass prism"></div>
+    <div class="hero-fade"></div>
+  </div>
+  <a href="#why" class="scroll-cue" aria-label="Scroll to next section">
+    <span>Scroll</span>
+    <span class="scroll-cue-btn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12l7 7 7-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+  </a>
+</section>
 
-    <!-- Stats Cards -->
-    <div class="cards">
-      <div class="card">Users<br><strong>120</strong></div>
-      <div class="card">Sales<br><strong>5000</strong></div>
-      <div class="card">Orders<br><strong>45</strong></div>
-      <div class="card">Revenue<br><strong>12k</strong></div>
+<!-- ================= WHY CHOOSE US ================= -->
+<section class="why" id="why">
+  <div class="container">
+    <div class="why-head reveal">
+      <h2>Why You Absolutely<br><span class="sub">Should Partner With Us?</span></h2>
+      <p class="why-intro">Salford &amp; Co. isn't just a consultancy; it's a standoff against slides nobody re-opens. We connect <b>strategy, design, and execution</b> into a single, synchronized team. You aren't just hiring a vendor; you're adding the best operators in the business.</p>
+      <p class="why-lead">Here's why Salford is the shift you've been waiting for:</p>
     </div>
 
-    <!-- Table -->
-    <h3>Recent Users</h3>
-    <table>
-      <tr>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Status</th>
-      </tr>
-      <tr>
-        <td>Rahul</td>
-        <td>rahul@gmail.com</td>
-        <td>Active</td>
-      </tr>
-      <tr>
-        <td>Anita</td>
-        <td>anita@gmail.com</td>
-        <td>Pending</td>
-      </tr>
-    </table>
+    <div class="why-list">
+      <div class="why-item reveal">
+        <h3><span class="num">1.</span> National Reach, Not Just Local Hype</h3>
+        <p class="why-sub">Why settle for a local vendor when you can work with a team built for scale?</p>
+        <div class="why-bullets">
+          <div><div class="b-title">The Scale</div><div class="b-body">Salford runs engagements across every major growth stage, from seed to Series C.</div></div>
+          <div><div class="b-title">The Bench</div><div class="b-body">Your plan is shaped by operators who've shipped 120+ projects across industries.</div></div>
+          <div><div class="b-title">The Proof</div><div class="b-body">Winning with us proves the plan works in the real market, not just the deck.</div></div>
+        </div>
+      </div>
 
-    <footer>© 2026 Admin Panel</footer>
+      <div class="why-item reveal">
+        <h3><span class="num">2.</span> High Stakes: Real Outcomes, Not Just Slides</h3>
+        <p class="why-sub">We value your time, and we deliver on impact.</p>
+        <div class="why-bullets">
+          <div><div class="b-title">The Speed</div><div class="b-body">Strategy sprints turn a vague quarter into a two-week plan with owners and dates.</div></div>
+          <div><div class="b-title">The Craft</div><div class="b-body">Every deliverable is production-ready — no placeholder decks, no filler slides.</div></div>
+          <div><div class="b-title">The Growth</div><div class="b-body">Top clients get fast-tracked into our embedded-execution and hiring network.</div></div>
+        </div>
+      </div>
+
+      <div class="why-item reveal">
+        <h3><span class="num">3.</span> The "Build &amp; Ship" Culture</h3>
+        <p class="why-sub">Forget silent, boring status decks. Salford is where plans get built.</p>
+        <div class="why-bullets">
+          <div><div class="b-title">Grind &amp; Craft</div><div class="b-body">We blend the intensity of a sprint with the polish of a design studio.</div></div>
+          <div><div class="b-title">The Balance</div><div class="b-body">Heads-down strategy work, then real prototypes you can put in front of users.</div></div>
+          <div><div class="b-title">The Standard</div><div class="b-body">Every workstream ships something usable — not just a plan to make a plan.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= STAT CARDS ================= -->
+<section class="stats-row">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-card2 circle reveal">
+        <div class="icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none"><rect x="2" y="6" width="20" height="12" rx="2" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.6"/></svg></div>
+        <div class="big">240K+</div>
+        <div class="lbl">Users Acquired</div>
+      </div>
+      <div class="stat-card2 reveal reveal-delay-1">
+        <div class="icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="1.6"/><path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+        <div class="big">120+</div>
+        <div class="lbl">Projects Shipped</div>
+      </div>
+      <div class="stat-card2 reveal reveal-delay-2">
+        <div class="icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none"><path d="M4 21V9a2 2 0 012-2h3V4a2 2 0 012-2h2a2 2 0 012 2v3h3a2 2 0 012 2v12" stroke="currentColor" stroke-width="1.6"/></svg></div>
+        <div class="big">48</div>
+        <div class="lbl">Team Members</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MARQUEE ================= -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="filled">Strategy</span><span class="dot">.</span><span>Design</span><span class="dot">.</span><span class="filled">Execution</span><span class="dot">.</span><span>Growth</span><span class="dot">.</span>
+    <span class="filled">Strategy</span><span class="dot">.</span><span>Design</span><span class="dot">.</span><span class="filled">Execution</span><span class="dot">.</span><span>Growth</span><span class="dot">.</span>
   </div>
 </div>
 
+<!-- ================= TIMELINE / PROCESS ================= -->
+<section class="timeline-sec" id="timeline">
+  <div class="container">
+    <div class="eyebrow-label reveal">Process</div>
+    <h2 class="reveal" style="font-size:clamp(34px,4.4vw,54px);margin-bottom:60px;">Discover the Full Structure<br><span style="color:var(--dimmer);">of an Engagement</span></h2>
+
+    <div class="timeline-day reveal">
+      <div class="day-badge">Phase 1</div>
+      <div class="day-title">Discovery &amp; Strategy</div>
+    </div>
+    <div class="timeline-rows reveal">
+      <div class="t-row">
+        <div class="t-time">Week 1</div>
+        <div class="t-card"><h4>Kickoff &amp; Immersion</h4><p><b>Stakeholder interviews:</b> we sit with your team and your numbers. <b>Data pull:</b> access to product, sales, and support data. <b>Goal lock:</b> a shared definition of what winning looks like.</p></div>
+      </div>
+      <div class="t-row">
+        <div class="t-time">Week 2</div>
+        <div class="t-card"><h4>Strategy Sprint</h4><p>Problem statements unlocked. The plan is shaped, owners are assigned, and the two-week roadmap goes live.</p></div>
+      </div>
+    </div>
+
+    <div class="timeline-day reveal" style="margin-top:40px;">
+      <div class="day-badge">Phase 2</div>
+      <div class="day-title">Build &amp; Ship</div>
+    </div>
+    <div class="timeline-rows reveal">
+      <div class="t-row">
+        <div class="t-time">Weeks 3–6</div>
+        <div class="t-card"><h4>Embedded Execution</h4><p>Our team sits inside yours to build, test, and ship the parts of the plan that keep slipping. Mid-sprint reviews keep everyone aligned.</p></div>
+      </div>
+      <div class="t-row">
+        <div class="t-time">Week 7</div>
+        <div class="t-card"><h4>Launch Readiness</h4><p><b>Code freeze &amp; QA:</b> everything gets a final pass. <b>Go-to-market prep:</b> messaging, assets, and rollout plan locked.</p></div>
+      </div>
+      <div class="t-row">
+        <div class="t-time">Week 8</div>
+        <div class="t-card"><h4>Results &amp; Handoff</h4><p>Outcomes reviewed against the goals set on day one, then a full handoff so your team owns what we built together.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section class="faq-sec" id="faq">
+  <div class="container">
+    <div class="faq-grid">
+      <div class="faq-head reveal">
+        <div class="eyebrow-label">Questions</div>
+        <h2>All the Important Details Before You <span class="accent">Partner With Us</span></h2>
+      </div>
+      <div class="faq-list reveal reveal-delay-1" id="faqList">
+        <div class="faq-item">
+          <div class="faq-q">What's the selection process for new clients?<span class="faq-plus"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></span></div>
+          <div class="faq-a">We start with a 30-minute discovery call to understand the problem, then send a short scoping questionnaire before proposing an engagement shape.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Can I bring in just a single workstream?<span class="faq-plus"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></span></div>
+          <div class="faq-a">Yes — advisory retainers cover a single workstream, while full delivery engagements own an entire product area end to end.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">We're an early-stage team. Should we apply?<span class="faq-plus"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></span></div>
+          <div class="faq-a">Absolutely. Some of our best outcomes have come from seed-stage teams who needed a sharp second opinion before their first big hire.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">What does a typical problem statement look like?<span class="faq-plus"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></span></div>
+          <div class="faq-a">Anything from "our activation rate has stalled" to "we need a go-to-market plan for a new product line" — we scope it together in week one.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Can our team collaborate directly with yours?<span class="faq-plus"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></span></div>
+          <div class="faq-a">Yes — embedded engagements mean our team works inside your existing tools and stand-ups, not in a separate silo.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-q">Is this a remote or on-site engagement?<span class="faq-plus"><svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="white" stroke-width="2" stroke-linecap="round"/></svg></span></div>
+          <div class="faq-a">Both — most work happens remotely, with on-site sessions for kickoffs, workshops, and launch reviews.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TEAM / HOSTS ================= -->
+<section class="hosts-sec" id="team">
+  <div class="container">
+    <div class="hosts-grid">
+      <div class="hosts-photos reveal">
+        <div class="big-photo"><img src="images/team-daniel.jpg" alt="Daniel Gallego, CEO"></div>
+        <div class="sm-photo"><img src="images/team-samira.jpg" alt="Samira Hadid, CTO"><span class="tag">Samira Hadid — CTO</span></div>
+        <div class="sm-photo"><img src="images/team-avery.jpg" alt="Avery Davis, General Manager"><span class="tag">Avery Davis — GM</span></div>
+      </div>
+      <div class="hosts-text reveal reveal-delay-1">
+        <div class="eyebrow-label">Our Team</div>
+        <h2 style="font-size:clamp(32px,4vw,48px);margin-bottom:26px;">Meet the People Behind Salford &amp; Co.</h2>
+        <p>Brought to you by a team that's shaped strategy for startups across every stage. Salford is the standing team every ambitious founder wishes they'd hired sooner.</p>
+        <p>Led by <b>Daniel Gallego</b>, our team is a small group of operators and designers dedicated to turning plans into shipped work. We don't just write strategy; we build the future with it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= REGISTER / CTA ================= -->
+<section class="register-sec" id="register">
+  <div class="container">
+    <div class="register-head reveal">
+      <div class="eyebrow-label">Get Started</div>
+      <h2>Secure Your Spot with <span class="accent">Salford Today!</span></h2>
+    </div>
+    <div class="register-panel reveal reveal-delay-1">
+      <div class="register-crystal"><img src="images/cube.png" alt=""></div>
+      <div class="register-why">
+        <h3>Why Partner?</h3>
+        <ul>
+          <li>48 Senior Operators</li>
+          <li>Across Every Growth Stage</li>
+          <li>120+ Projects Shipped</li>
+          <li>Production-Ready Deliverables</li>
+          <li>Embedded Execution Support</li>
+        </ul>
+      </div>
+      <div class="register-cta">
+        <div>
+          <span class="tag">Salford &amp; Co.</span>
+          <div class="free">Free</div>
+          <div class="desc">Initial strategy consultation<br>(30 minutes, no commitment)</div>
+        </div>
+        <a href="#contact" class="btn">Book Now! <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="margin-left:2px;"><path d="M7 17L17 7M17 7H9M17 7V15" stroke="black" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT FORM ================= -->
+<section class="form-sec" id="contact">
+  <div class="container">
+    <div class="eyebrow-label reveal">Get In Touch</div>
+    <h2 class="reveal" style="font-size:clamp(34px,4.4vw,54px);margin-bottom:50px;">Tell Us Where The Plan Is Stuck</h2>
+    <div class="form-wrap">
+      <div class="contact-info-card reveal">
+        <h3>Let's build the next version of your plan</h3>
+        <p>Whether it's a single workshop or an embedded team for the quarter, tell us the shape of the problem and we'll tell you the shape of the engagement.</p>
+        <div class="info-line"><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke="currentColor" stroke-width="1.6"/></svg></span><div><b>Call us</b><span>+123-456-7890</span></div></div>
+        <div class="info-line"><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M4 4h16v16H4V4z" stroke="currentColor" stroke-width="1.6"/><path d="M4 6l8 7 8-7" stroke="currentColor" stroke-width="1.6"/></svg></span><div><b>Email us</b><span>hello@reallygreatsite.com</span></div></div>
+        <div class="info-line"><span class="ic"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="10" r="3" stroke="currentColor" stroke-width="1.6"/></svg></span><div><b>Visit us</b><span>221 Meridian Ave, Suite 400</span></div></div>
+      </div>
+      <div class="form-card reveal reveal-delay-1">
+        <form id="contactForm" novalidate>
+          <div class="form-row">
+            <div class="field"><label for="fname">Full name</label><input type="text" id="fname" name="fname" placeholder="Jordan Lee" required></div>
+            <div class="field"><label for="femail">Email</label><input type="email" id="femail" name="femail" placeholder="jordan@company.com" required></div>
+          </div>
+          <div class="field"><label for="fsubject">Subject</label><input type="text" id="fsubject" name="fsubject" placeholder="What's this about?" required></div>
+          <div class="field"><label for="fmessage">Message</label><textarea id="fmessage" name="fmessage" placeholder="Tell us a bit about the plan you're working on..." required></textarea></div>
+          <button type="submit" class="btn btn-red form-submit">Send Message</button>
+          <div class="success-msg" id="successMsg">✓ Thanks — your message has been queued. We'll be in touch within one business day.</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER WORDMARK ================= -->
+<div class="foot-wordmark"><div class="word">SALFORD</div></div>
+<footer>
+  <div class="container footer-inner">
+    <div class="brand" style="color:#fff;">Salford &amp; Co.</div>
+    <div class="footer-links">
+      <a href="#top">Home</a>
+      <a href="#why">Why Us</a>
+      <a href="#team">Team</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div style="display:flex;align-items:center;gap:18px;">
+      <span>© 2027 Salford &amp; Co. All rights reserved.</span>
+      <span class="to-top" id="toTop" title="Back to top"><svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 19V5M5 12l7-7 7 7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const heroTitle = document.getElementById('heroTitle');
+  const titleText = heroTitle.textContent;
+  heroTitle.innerHTML = titleText.split('').map((ch,i)=>`<span class="ch" style="animation-delay:${0.1+i*0.035}s">${ch}</span>`).join('');
+
+  const particleField = document.getElementById('particleField');
+  const particleCount = window.innerWidth < 640 ? 10 : 22;
+  for(let i=0;i<particleCount;i++){
+    const p=document.createElement('div');p.className='particle';
+    const size=2+Math.random()*3;
+    p.style.width=size+'px';p.style.height=size+'px';
+    p.style.left=Math.random()*100+'%';p.style.top=30+Math.random()*60+'%';
+    p.style.animationDuration=(5+Math.random()*6)+'s';p.style.animationDelay=(Math.random()*6)+'s';
+    particleField.appendChild(p);
+  }
+
+  const heroStage=document.getElementById('heroStage');
+  const cubeMain=document.getElementById('cubeMain');
+  const cubeDup1=document.getElementById('cubeDup1');
+  const cubeDup2=document.getElementById('cubeDup2');
+  if(window.matchMedia('(pointer: fine)').matches){
+    document.querySelector('.hero').addEventListener('mousemove',(e)=>{
+      const r=heroStage.getBoundingClientRect();
+      const relX=(e.clientX-r.left-r.width/2)/r.width;
+      const relY=(e.clientY-r.top-r.height/2)/r.height;
+      cubeMain.style.setProperty('--px',(relX*26)+'px');
+      cubeMain.style.setProperty('--py',(relY*16)+'px');
+      cubeDup1.style.setProperty('--px',(relX*16)+'px');
+      cubeDup2.style.setProperty('--px',(relX*9)+'px');
+    });
+  }
+
+  if(window.matchMedia('(pointer: fine)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    document.querySelectorAll('.hero-ctas .btn').forEach(btn=>{
+      btn.addEventListener('mousemove',(e)=>{
+        const r=btn.getBoundingClientRect();
+        const x=(e.clientX-r.left-r.width/2)*0.25;
+        const y=(e.clientY-r.top-r.height/2)*0.35;
+        btn.style.transform=`translate(${x}px, ${y}px)`;
+      });
+      btn.addEventListener('mouseleave',()=>{btn.style.transform='';});
+    });
+  }
+
+  const nav=document.getElementById('nav');
+  window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>40);});
+
+  const menuToggle=document.getElementById('menuToggle');
+  const mobileMenu=document.getElementById('mobileMenu');
+  menuToggle.addEventListener('click',()=>{
+    const open=mobileMenu.style.display==='block';
+    mobileMenu.style.display=open?'none':'block';
+  });
+  mobileMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>mobileMenu.style.display='none'));
+
+  const sections=document.querySelectorAll('section[id]');
+  const navA=document.querySelectorAll('.nav-links a');
+  const setActive=()=>{
+    let current='';
+    sections.forEach(sec=>{const top=sec.offsetTop-140;if(window.scrollY>=top)current=sec.getAttribute('id');});
+    navA.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+current));
+  };
+  window.addEventListener('scroll',setActive);setActive();
+
+  const revealEls=document.querySelectorAll('.reveal');
+  const io=new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+  },{threshold:0.12});
+  revealEls.forEach(el=>io.observe(el));
+
+  document.getElementById('toTop').addEventListener('click',()=>{window.scrollTo({top:0,behavior:'smooth'});});
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-item').forEach(item=>{
+    item.querySelector('.faq-q').addEventListener('click',()=>{
+      const isOpen=item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(o=>o.classList.remove('open'));
+      if(!isOpen) item.classList.add('open');
+    });
+  });
+
+  const form=document.getElementById('contactForm');
+  const successMsg=document.getElementById('successMsg');
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    if(!form.checkValidity()){form.reportValidity();return;}
+    const btn=form.querySelector('.form-submit');
+    const original=btn.textContent;
+    btn.textContent='Sending...';btn.disabled=true;
+    setTimeout(()=>{
+      btn.textContent=original;btn.disabled=false;
+      successMsg.classList.add('show');form.reset();
+      setTimeout(()=>successMsg.classList.remove('show'),6000);
+    },900);
+  });
+</script>
 </body>
 </html>

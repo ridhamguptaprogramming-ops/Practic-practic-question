@@ -1,71 +1,789 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Live Character & Word Analyzer</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f4f4f4;
-            padding: 20px;
-        }
-        textarea {
-            width: 100%;
-            height: 150px;
-            padding: 10px;
-            font-size: 16px;
-        }
-        button {
-            margin-top: 10px;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        .output {
-            margin-top: 15px;
-            font-size: 18px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>About Us | RIFT '26</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet"
+  >
+
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+  >
+
+  <link rel="stylesheet" href="about.css">
 </head>
+
 <body>
 
-    <h2>Live Character & Word Analyzer</h2>
+  <!-- ================= NAVBAR ================= -->
 
-    <textarea id="textInput" placeholder="Type your paragraph here..."></textarea><br><br>
+  <header class="navbar">
 
-    <button onclick="analyzeText()">Analyze Text</button>
+    <a href="#" class="logo">
+      <div class="logo-circle">PW</div>
 
-    <div class="output">
-        <p id="charactercount"></p>
-        <p id="wordcount"></p>
-        <p id="sentenceCount"></p>
+      <div class="logo-text">
+        <span>INSTITUTE OF</span>
+        <span>INNOVATION</span>
+      </div>
+    </a>
+
+    <nav class="nav-links">
+      <a href="#about">About Us</a>
+      <a href="#team">Event Agenda</a>
+      <a href="#contact">Contact Us</a>
+
+      <a href="#register" class="register-btn">
+        Register for Free!
+        <span class="arrow">↗</span>
+      </a>
+    </nav>
+
+    <button class="menu-btn" id="menuBtn">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+
+  </header>
+
+
+  <!-- ================= HERO ================= -->
+
+  <section class="hero" id="about">
+
+    <div class="hero-glow glow-one"></div>
+    <div class="hero-glow glow-two"></div>
+
+    <div class="hero-content">
+
+      <p class="small-title">RIFT '26 • OUR PEOPLE</p>
+
+      <h1>
+        Meet Our
+        <span>Team!</span>
+      </h1>
+
+      <p class="hero-description">
+        The people behind the ideas, experiences and energy
+        that make RIFT '26 possible.
+      </p>
+
     </div>
 
-    <script>
-        function analyzeText() {
-            let text = document.getElementById("textInput").value;
+  </section>
 
-            // Character count (including spaces)
-            let characterCount = text.length;
 
-            // Word count
-            let words = text.trim().split(/\s+/);
-            let wordCount = text.trim() === "" ? 0 : words.length;
+  <!-- ================= TEAM ================= -->
 
-            // Sentence count (counting full stops)
-            let sentenceCount = text.split(".").length - 1;
+  <main id="team" class="team-section">
 
-            document.getElementById("charactercount").innerText =
-                "Character Count (including spaces): " + characterCount;
+    <!-- CORE TEAM -->
 
-            document.getElementById("wordcount").innerText =
-                "Word Count: " + wordCount;
+    <section class="team-block reveal">
 
-            document.getElementById("sentenceCount").innerText =
-                "Sentence Count: " + sentenceCount;
-        }
-    </script>
+      <div class="section-title">
+        <h2>
+          Core Organising
+          <span>Committee</span>
+        </h2>
+      </div>
+
+      <div class="team-grid">
+
+        <!-- MEMBER -->
+
+        <div class="member-card">
+
+          <div class="member-image">
+            <img src="images/team1.jpg" alt="Saiyam Kumar">
+
+            <div class="image-overlay"></div>
+
+            <div class="social-icons">
+              <a href="#" aria-label="Instagram">
+                <i class="fa-brands fa-instagram"></i>
+              </a>
+
+              <a href="#" aria-label="LinkedIn">
+                <i class="fa-brands fa-linkedin-in"></i>
+              </a>
+            </div>
+          </div>
+
+          <div class="member-info">
+            <h3>Saiyam Kumar</h3>
+            <p>Event Director, RIFT '26</p>
+          </div>
+
+        </div>
+
+
+        <div class="member-card">
+
+          <div class="member-image">
+            <img src="images/team2.jpg" alt="Dhruv Narang">
+
+            <div class="image-overlay"></div>
+
+            <div class="social-icons">
+              <a href="#">
+                <i class="fa-brands fa-instagram"></i>
+              </a>
+
+              <a href="#">
+                <i class="fa-brands fa-linkedin-in"></i>
+              </a>
+            </div>
+          </div>
+
+          <div class="member-info">
+            <h3>Dhruv Narang</h3>
+            <p>Event Manager, RIFT '26</p>
+          </div>
+
+        </div>
+
+
+        <div class="member-card">
+
+          <div class="member-image">
+            <img src="images/team3.jpg" alt="Ayush Chaurasiya">
+
+            <div class="image-overlay"></div>
+
+            <div class="social-icons">
+              <a href="#">
+                <i class="fa-brands fa-instagram"></i>
+              </a>
+
+              <a href="#">
+                <i class="fa-brands fa-linkedin-in"></i>
+              </a>
+            </div>
+          </div>
+
+          <div class="member-info">
+            <h3>Ayush Chaurasiya</h3>
+            <p>Event Coordinator, RIFT '26</p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= MARKETING ================= -->
+
+    <section class="team-block reveal">
+
+      <div class="department-title">
+        <span></span>
+        <h3>Marketing & Branding</h3>
+      </div>
+
+      <div class="team-grid">
+
+        <div class="member-card">
+          <div class="member-image">
+            <img src="images/nimish.jpg" alt="Nimish Agrawal">
+
+            <div class="image-overlay"></div>
+
+            <div class="social-icons">
+              <a href="#"><i class="fa-brands fa-instagram"></i></a>
+              <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+          </div>
+
+          <div class="member-info">
+            <h3>Nimish Agrawal</h3>
+            <p>HOD, Marketing & Branding</p>
+          </div>
+        </div>
+
+
+        <div class="member-card">
+          <div class="member-image">
+            <img src="images/krishna.jpg" alt="Krishna Jain">
+
+            <div class="image-overlay"></div>
+
+            <div class="social-icons">
+              <a href="#"><i class="fa-brands fa-instagram"></i></a>
+              <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+          </div>
+
+          <div class="member-info">
+            <h3>Krishna Jain</h3>
+            <p>HOD, Marketing & Branding</p>
+          </div>
+        </div>
+
+
+        <div class="member-card">
+          <div class="member-image">
+            <img src="images/manash.jpg" alt="Manash Swain">
+
+            <div class="image-overlay"></div>
+
+            <div class="social-icons">
+              <a href="#"><i class="fa-brands fa-instagram"></i></a>
+              <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+          </div>
+
+          <div class="member-info">
+            <h3>Manash Swain</h3>
+            <p>HOD, Marketing & Branding</p>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= SPONSORSHIP ================= -->
+
+    <section class="team-block reveal">
+
+      <div class="department-title">
+        <span></span>
+        <h3>Sponsorship & Finance</h3>
+      </div>
+
+      <div class="team-grid">
+
+        <div class="member-card">
+          <div class="member-image">
+            <img src="images/team1.jpg" alt="Saiyam Kumar">
+
+            <div class="image-overlay"></div>
+
+            <div class="social-icons">
+              <a href="#"><i class="fa-brands fa-instagram"></i></a>
+              <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+          </div>
+
+          <div class="member-info">
+            <h3>Saiyam Kumar</h3>
+            <p>HOD, Sponsorship & Finance</p>
+          </div>
+        </div>
+
+
+        <div class="member-card">
+          <div class="member-image">
+            <img src="images/esha.jpg" alt="Esha Bajaj">
+
+            <div class="image-overlay"></div>
+
+            <div class="social-icons">
+              <a href="#"><i class="fa-brands fa-instagram"></i></a>
+              <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+          </div>
+
+          <div class="member-info">
+            <h3>Esha Bajaj</h3>
+            <p>HOD, Sponsorship & Finance</p>
+          </div>
+        </div>
+
+
+        <div class="member-card">
+          <div class="member-image">
+            <img src="images/janvi.jpg" alt="Janvi Yadav">
+
+            <div class="image-overlay"></div>
+
+            <div class="social-icons">
+              <a href="#"><i class="fa-brands fa-instagram"></i></a>
+              <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+          </div>
+
+          <div class="member-info">
+            <h3>Janvi Yadav</h3>
+            <p>HOD, Sponsorship & Finance</p>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= REGISTRATION ================= -->
+
+    <section class="team-block reveal">
+
+      <div class="department-title">
+        <span></span>
+        <h3>Registration & Acads.</h3>
+      </div>
+
+      <div class="team-grid">
+
+        <div class="member-card">
+          <div class="member-image">
+            <img src="images/pranjal.jpg" alt="Pranjal Singh">
+
+            <div class="image-overlay"></div>
+
+            <div class="social-icons">
+              <a href="#"><i class="fa-brands fa-instagram"></i></a>
+              <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+          </div>
+
+          <div class="member-info">
+            <h3>Pranjal Singh</h3>
+            <p>HOD, Registration & Acads.</p>
+          </div>
+        </div>
+
+
+        <div class="member-card">
+          <div class="member-image">
+            <img src="images/team2.jpg" alt="Dhruv Narang">
+
+            <div class="image-overlay"></div>
+
+            <div class="social-icons">
+              <a href="#"><i class="fa-brands fa-instagram"></i></a>
+              <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+          </div>
+
+          <div class="member-info">
+            <h3>Dhruv Narang</h3>
+            <p>HOD, Registration & Acads.</p>
+          </div>
+        </div>
+
+
+        <div class="member-card">
+          <div class="member-image">
+            <img src="images/manas.jpg" alt="Manas">
+
+            <div class="image-overlay"></div>
+
+            <div class="social-icons">
+              <a href="#"><i class="fa-brands fa-instagram"></i></a>
+              <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+          </div>
+
+          <div class="member-info">
+            <h3>Manas</h3>
+            <p>HOD, Registration & Acads.</p>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= OPERATIONS ================= -->
+
+    <section class="team-block reveal">
+
+      <div class="department-title">
+        <span></span>
+        <h3>Operations & Logistics</h3>
+      </div>
+
+      <div class="team-grid two">
+
+        <div class="member-card">
+          <div class="member-image">
+            <img src="images/sairaj.jpg" alt="Sairaj Shelar">
+
+            <div class="image-overlay"></div>
+
+            <div class="social-icons">
+              <a href="#"><i class="fa-brands fa-instagram"></i></a>
+              <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+          </div>
+
+          <div class="member-info">
+            <h3>Sairaj Shelar</h3>
+            <p>HOD, Operations & Logistics</p>
+          </div>
+        </div>
+
+
+        <div class="member-card">
+          <div class="member-image">
+            <img src="images/riyanshi.jpg" alt="Riyanshi Tomar">
+
+            <div class="image-overlay"></div>
+
+            <div class="social-icons">
+              <a href="#"><i class="fa-brands fa-instagram"></i></a>
+              <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+          </div>
+
+          <div class="member-info">
+            <h3>Riyanshi Tomar</h3>
+            <p>HOD, Operations & Logistics</p>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= COLLEGE REACHOUT ================= -->
+
+    <section class="team-block reveal">
+
+      <div class="department-title">
+        <span></span>
+        <h3>College Reachout</h3>
+      </div>
+
+      <div class="team-grid">
+
+        <div class="member-card">
+          <div class="member-image">
+            <img src="images/prateek.jpg" alt="Prateek">
+
+            <div class="image-overlay"></div>
+
+            <div class="social-icons">
+              <a href="#"><i class="fa-brands fa-instagram"></i></a>
+              <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+          </div>
+
+          <div class="member-info">
+            <h3>Prateek</h3>
+            <p>HOD, College Reachout</p>
+          </div>
+        </div>
+
+
+        <div class="member-card">
+          <div class="member-image">
+            <img src="images/ayush.jpg" alt="Ayush Chaurasiya">
+
+            <div class="image-overlay"></div>
+
+            <div class="social-icons">
+              <a href="#"><i class="fa-brands fa-instagram"></i></a>
+              <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+          </div>
+
+          <div class="member-info">
+            <h3>Ayush Chaurasiya</h3>
+            <p>HOD, College Reachout</p>
+          </div>
+        </div>
+
+
+        <div class="member-card">
+          <div class="member-image">
+            <img src="images/suprakash.jpg" alt="Suprakash Dhar">
+
+            <div class="image-overlay"></div>
+
+            <div class="social-icons">
+              <a href="#"><i class="fa-brands fa-instagram"></i></a>
+              <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+          </div>
+
+          <div class="member-info">
+            <h3>Suprakash Dhar</h3>
+            <p>HOD, College Reachout</p>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= GUEST ================= -->
+
+    <section class="team-block reveal">
+
+      <div class="department-title">
+        <span></span>
+        <h3>Guest & Speaker Reachout</h3>
+      </div>
+
+      <div class="team-grid two">
+
+        <div class="member-card">
+          <div class="member-image">
+            <img src="images/aryan.jpg" alt="Aryan Singh">
+
+            <div class="image-overlay"></div>
+
+            <div class="social-icons">
+              <a href="#"><i class="fa-brands fa-instagram"></i></a>
+              <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+          </div>
+
+          <div class="member-info">
+            <h3>Aryan Singh</h3>
+            <p>HOD, Guest & Speaker Reachout</p>
+          </div>
+        </div>
+
+
+        <div class="member-card">
+          <div class="member-image">
+            <img src="images/team1.jpg" alt="Saiyam Kumar">
+
+            <div class="image-overlay"></div>
+
+            <div class="social-icons">
+              <a href="#"><i class="fa-brands fa-instagram"></i></a>
+              <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+          </div>
+
+          <div class="member-info">
+            <h3>Saiyam Kumar</h3>
+            <p>HOD, Guest & Speaker Reachout</p>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= COORDINATION ================= -->
+
+    <section class="team-block reveal">
+
+      <div class="department-title">
+        <span></span>
+        <h3>Coordination Team</h3>
+      </div>
+
+      <div class="team-grid four">
+
+        <div class="member-card">
+          <div class="member-image">
+            <img src="images/mayank.jpg" alt="Mayank Wanjari">
+
+            <div class="image-overlay"></div>
+
+            <div class="social-icons">
+              <a href="#"><i class="fa-brands fa-instagram"></i></a>
+              <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+          </div>
+
+          <div class="member-info">
+            <h3>Mayank Wanjari</h3>
+            <p>HOD, Coordination Team</p>
+          </div>
+        </div>
+
+
+        <div class="member-card">
+          <div class="member-image">
+            <img src="images/atul.jpg" alt="Atul Kumar">
+
+            <div class="image-overlay"></div>
+
+            <div class="social-icons">
+              <a href="#"><i class="fa-brands fa-instagram"></i></a>
+              <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+          </div>
+
+          <div class="member-info">
+            <h3>Atul Kumar</h3>
+            <p>HOD, Coordination Team</p>
+          </div>
+        </div>
+
+
+        <div class="member-card">
+          <div class="member-image">
+            <img src="images/ganesh.jpg" alt="Ganesh Agarwal">
+
+            <div class="image-overlay"></div>
+
+            <div class="social-icons">
+              <a href="#"><i class="fa-brands fa-instagram"></i></a>
+              <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+          </div>
+
+          <div class="member-info">
+            <h3>Ganesh Agarwal</h3>
+            <p>HOD, Coordination Team</p>
+          </div>
+        </div>
+
+
+        <div class="member-card">
+          <div class="member-image">
+            <img src="images/sushrut.jpg" alt="Sushrut">
+
+            <div class="image-overlay"></div>
+
+            <div class="social-icons">
+              <a href="#"><i class="fa-brands fa-instagram"></i></a>
+              <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+          </div>
+
+          <div class="member-info">
+            <h3>Sushrut</h3>
+            <p>HOD, Coordination Team</p>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ================= REGISTRATION ================= -->
+
+    <section class="registration" id="register">
+
+      <div class="department-title">
+        <span></span>
+        <h3>Registration</h3>
+      </div>
+
+      <h2>
+        Secure Your Spot at
+        <span>RIFT '26</span>
+        <br>
+        Today
+      </h2>
+
+
+      <div class="registration-content">
+
+        <!-- ROTATING TICKET -->
+
+        <div class="ticket-area">
+
+          <div class="ticket-glow"></div>
+
+          <div class="ticket-wrapper">
+
+            <div class="ticket">
+
+              <div class="ticket-top">
+                RIFT '26
+              </div>
+
+              <div class="ticket-icon">
+                🎟
+              </div>
+
+              <div class="ticket-lines">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <!-- WHY JOIN -->
+
+        <div class="why-card">
+
+          <h3>Why Join?</h3>
+
+          <ul>
+            <li>2000+ Participants</li>
+            <li>Across 4 Cities</li>
+            <li>2.5+ Lakh Prize Pool</li>
+            <li>Participation Certificates for all</li>
+            <li>Night-long snacks & coffee</li>
+            <li>Sessions from top leaders</li>
+          </ul>
+
+        </div>
+
+
+        <!-- FREE CARD -->
+
+        <div class="free-card">
+
+          <span class="tag">RIFT '26</span>
+
+          <h3>Free</h3>
+
+          <p>
+            Team Registration
+            <br>
+            (2-4 members)
+          </p>
+
+          <a href="#" class="register-now">
+            Register Now!
+            <span>↗</span>
+          </a>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- ================= FOOTER ================= -->
+
+  <footer id="contact">
+
+    <div class="footer-logo">
+      <div class="logo-circle">PW</div>
+
+      <div class="logo-text">
+        <span>INSTITUTE OF</span>
+        <span>INNOVATION</span>
+      </div>
+    </div>
+
+    <p>
+      © 2026 RIFT. All rights reserved.
+    </p>
+
+  </footer>
+
+
+  <script src="about.js"></script>
 
 </body>
 </html>
